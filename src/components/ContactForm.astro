@@ -237,7 +237,7 @@ const { title = "Contact Us", description = "Get in touch with us for any questi
         
         if (isValid) {
           // Submit form
-          const formData = new FormData(form);
+          const formData = new FormData(form as HTMLFormElement);
           
           fetch('/', {
             method: 'POST',
@@ -246,7 +246,7 @@ const { title = "Contact Us", description = "Get in touch with us for any questi
           })
           .then(response => {
             if (response.ok) {
-              form.reset();
+              (form as HTMLFormElement).reset();
               if (successMessage) successMessage.classList.remove('hidden');
               if (errorMessage) errorMessage.classList.add('hidden');
             } else {

@@ -107,19 +107,33 @@
     const backdrop = document.getElementById('chat-backdrop');
     const closeBtn = document.getElementById('close-chat');
     const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
+    const chatInput = document.getElementById('chat-input') as HTMLInputElement;
     const chatMessages = document.getElementById('chat-messages');
+
+    if (!fab || !drawer || !backdrop || !closeBtn || !chatForm || !chatInput || !chatMessages) {
+      console.error('Required chat elements not found');
+      return;
+    }
+
+    // TypeScript now knows these are not null
+    const fabElement = fab as HTMLElement;
+    const drawerElement = drawer as HTMLElement;
+    const backdropElement = backdrop as HTMLElement;
+    const closeBtnElement = closeBtn as HTMLElement;
+    const chatFormElement = chatForm as HTMLFormElement;
+    const chatInputElement = chatInput as HTMLInputElement;
+    const chatMessagesElement = chatMessages as HTMLElement;
 
     let isOpen = false;
 
     function openChat() {
       isOpen = true;
-      drawer.classList.remove('hidden');
-      fab.setAttribute('aria-expanded', 'true');
+      drawerElement.classList.remove('hidden');
+      fabElement.setAttribute('aria-expanded', 'true');
       
       // Animate drawer
       setTimeout(() => {
-        const drawerContent = drawer.querySelector('.max-w-md');
+        const drawerContent = drawerElement.querySelector('.max-w-md');
         if (drawerContent) {
           drawerContent.classList.remove('translate-y-full');
         }
@@ -128,26 +142,26 @@
 
     function closeChat() {
       isOpen = false;
-      const drawerContent = drawer.querySelector('.max-w-md');
+      const drawerContent = drawerElement.querySelector('.max-w-md');
       if (drawerContent) {
         drawerContent.classList.add('translate-y-full');
       }
       
       setTimeout(() => {
-        drawer.classList.add('hidden');
-        fab.setAttribute('aria-expanded', 'false');
+        drawerElement.classList.add('hidden');
+        fabElement.setAttribute('aria-expanded', 'false');
       }, 300);
     }
 
     // Event listeners
-    fab.addEventListener('click', openChat);
-    closeBtn.addEventListener('click', closeChat);
-    backdrop.addEventListener('click', closeChat);
+    fabElement.addEventListener('click', openChat);
+    closeBtnElement.addEventListener('click', closeChat);
+    backdropElement.addEventListener('click', closeChat);
 
     // Demo form submission
-    chatForm.addEventListener('submit', (e) => {
+    chatFormElement.addEventListener('submit', (e) => {
       e.preventDefault();
-      const message = chatInput.value.trim();
+      const message = chatInputElement.value.trim();
       if (!message) return;
 
       // Add user message
@@ -163,10 +177,10 @@
           </svg>
         </div>
       `;
-      chatMessages.appendChild(userMessage);
+      chatMessagesElement.appendChild(userMessage);
 
       // Clear input
-      chatInput.value = '';
+      chatInputElement.value = '';
 
       // Demo response
       setTimeout(() => {
@@ -182,11 +196,11 @@
             <p class="text-sm text-gray-800">Thanks for your question! This is a demo - real AI responses will be available soon. For immediate assistance, please call us at (650) 961-0302.</p>
           </div>
         `;
-        chatMessages.appendChild(botMessage);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatMessagesElement.appendChild(botMessage);
+        chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
       }, 1000);
 
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
     });
 
     // Keyboard shortcuts
