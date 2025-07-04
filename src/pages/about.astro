@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'About', url: '/about' }
+];
+---
+
+<BaseLayout 
+  title="About Us - Skyline Auto Repair"
+  description="Learn about Skyline Auto Repair's 40+ year history serving Mountain View, CA. Family-owned since 1985 with ASE-certified technicians."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      
+      <div class="text-center mb-12">
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary mb-4">
+          About Skyline Auto Repair
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Family-owned and operated since 1985, serving the Mountain View community with honest, reliable auto repair services.
+        </p>
+      </div>
+
+      <!-- Company Story -->
+      <section class="mb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-display font-bold text-primary mb-6">
+              Our Story
+            </h2>
+            <div class="prose prose-lg text-gray-700 space-y-4">
+              <p>
+                Founded in 1985 by John and Mary Rodriguez, Skyline Auto Repair began as a small family shop with a big mission: to provide honest, reliable auto repair services to the Mountain View community.
+              </p>
+              <p>
+                What started as a two-bay garage has grown into a full-service auto repair facility, but our commitment to family values and customer service has never changed. Today, John's son Mike leads our team of ASE-certified technicians, continuing the tradition of excellence that our customers have come to expect.
+              </p>
+              <p>
+                We believe in treating every customer like family, which means honest diagnostics, fair pricing, and quality work that stands behind our warranty. Whether you drive a Toyota, Honda, Lexus, or any other make, you can trust our experienced team to keep your vehicle running safely and efficiently.
+              </p>
+            </div>
+          </div>
+          
+          <div class="relative">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+              <div class="text-center space-y-6">
+                <div class="w-20 h-20 bg-accent rounded-full mx-auto flex items-center justify-center">
+                  <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-display font-bold text-primary">40+ Years of Service</h3>
+                <p class="text-gray-600">
+                  Serving the Mountain View community since 1985 with honest, reliable auto repair services.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications & Awards -->
+      <section class="mb-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-display font-bold text-primary mb-4">
+            Certifications & Awards
+          </h2>
+          <p class="text-lg text-gray-600">
+            Our commitment to excellence is recognized through industry certifications and customer satisfaction.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-display font-semibold text-primary mb-2">ASE Certified</h3>
+            <p class="text-gray-600">
+              All our technicians are ASE certified and continuously trained on the latest automotive technology.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-display font-semibold text-primary mb-2">AAA Approved</h3>
+            <p class="text-gray-600">
+              AAA approved auto repair facility, providing quality service to AAA members and all customers.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-display font-semibold text-primary mb-2">Customer Satisfaction</h3>
+            <p class="text-gray-600">
+              {SITE.ratingValue} star rating from {SITE.reviewCount} satisfied customers and growing.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section class="mb-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-display font-bold text-primary mb-4">
+            Meet Our Team
+          </h2>
+          <p class="text-lg text-gray-600">
+            Our experienced team of ASE-certified technicians is dedicated to keeping your vehicle running safely and efficiently.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <div class="w-24 h-24 bg-accent rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl font-display font-bold text-white">MR</span>
+            </div>
+            <h3 class="text-xl font-display font-semibold text-primary mb-2">Mike Rodriguez</h3>
+            <p class="text-accent font-medium mb-2">Owner & Master Technician</p>
+            <p class="text-gray-600 text-sm">
+              ASE Master Certified with over 20 years of experience. Specializes in Toyota and hybrid systems.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <div class="w-24 h-24 bg-accent rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl font-display font-bold text-white">DS</span>
+            </div>
+            <h3 class="text-xl font-display font-semibold text-primary mb-2">David Smith</h3>
+            <p class="text-accent font-medium mb-2">Senior Technician</p>
+            <p class="text-gray-600 text-sm">
+              ASE Certified with expertise in Honda and engine diagnostics. 15+ years of experience.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <div class="w-24 h-24 bg-accent rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl font-display font-bold text-white">JL</span>
+            </div>
+            <h3 class="text-xl font-display font-semibold text-primary mb-2">Jennifer Lee</h3>
+            <p class="text-accent font-medium mb-2">Service Advisor</p>
+            <p class="text-gray-600 text-sm">
+              Customer service specialist helping customers understand their vehicle needs and service options.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values -->
+      <section class="mb-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-display font-bold text-primary mb-4">
+            Our Values
+          </h2>
+          <p class="text-lg text-gray-600">
+            The principles that guide everything we do.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-display font-semibold text-primary mb-2">Honesty</h3>
+                <p class="text-gray-600">
+                  We believe in transparent communication and honest pricing. You'll always know what we're doing and why.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-display font-semibold text-primary mb-2">Quality</h3>
+                <p class="text-gray-600">
+                  We use only premium parts and stand behind our work with comprehensive warranties.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-display font-semibold text-primary mb-2">Community</h3>
+                <p class="text-gray-600">
+                  We're proud to be part of the Mountain View community and support local families and businesses.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-display font-semibold text-primary mb-2">Excellence</h3>
+                <p class="text-gray-600">
+                  We continuously improve our skills and stay current with the latest automotive technology.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="text-center">
+        <h2 class="text-3xl font-display font-bold text-primary mb-4">
+          Ready to Experience the Skyline Difference?
+        </h2>
+        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          Join thousands of satisfied customers who trust Skyline Auto Repair for their automotive needs.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/appointments" 
+            class="inline-flex items-center justify-center px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Book Appointment
+          </a>
+          <a 
+            href="/contact" 
+            class="inline-flex items-center justify-center px-8 py-4 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Contact Us
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout> 

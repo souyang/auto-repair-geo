@@ -1,0 +1,98 @@
+---
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config/site';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const { title, description = SITE.description, image, canonical } = Astro.props;
+const canonicalURL = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url.pathname);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": SITE.name,
+  "url": SITE.url,
+  "telephone": SITE.phone,
+  "email": SITE.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2037 Old Middlefield Way",
+    "addressLocality": "Mountain View",
+    "addressRegion": "CA",
+    "postalCode": "94043",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 37.3861,
+    "longitude": -122.0839
+  },
+  "openingHours": "Mo-Fr 08:00-17:00",
+  "areaServed": SITE.areaServed.map(area => ({
+    "@type": "City",
+    "name": area
+  })),
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": SITE.ratingValue,
+    "reviewCount": SITE.reviewCount
+  }
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonicalURL} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {image && <meta name="twitter:image" content={new URL(image, Astro.site)} />}
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body class="font-sans text-primary bg-white">
+    <!-- Skip to main content -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-white px-4 py-2 rounded z-50">
+      Skip to main content
+    </a>
+    
+    <Header />
+    
+    <main id="main-content" class="min-h-screen">
+      <slot />
+    </main>
+    
+    <Footer />
+  </body>
+</html> 

@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SERVICES } from '../../config/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Services', url: '/services' }
+];
+---
+
+<BaseLayout 
+  title="Auto Repair Services - Skyline Auto Repair"
+  description="Comprehensive auto repair and maintenance services in Mountain View, CA. From oil changes to engine diagnostics, our ASE-certified technicians provide expert service."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      
+      <div class="text-center mb-12">
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary mb-4">
+          Our Services
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          From routine maintenance to complex repairs, our ASE-certified technicians provide expert service for all makes and models.
+        </p>
+      </div>
+
+      <!-- Maintenance Services -->
+      <section class="mb-16">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-display font-bold text-primary mb-4">
+            Maintenance Services
+          </h2>
+          <p class="text-lg text-gray-600">
+            Keep your vehicle running smoothly with our comprehensive maintenance services.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {SERVICES.maintenance.map(service => (
+            <ServiceCard
+              title={service.title}
+              summary={service.summary}
+              excerpt={service.excerpt}
+              price={service.price}
+              duration={service.duration}
+              tags={service.tags}
+              slug={service.slug}
+              category="maintenance"
+            />
+          ))}
+        </div>
+      </section>
+
+      <!-- Repair Services -->
+      <section class="mb-16">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-display font-bold text-primary mb-4">
+            Repair Services
+          </h2>
+          <p class="text-lg text-gray-600">
+            Expert diagnosis and repair for all types of automotive issues.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {SERVICES.repair.map(service => (
+            <ServiceCard
+              title={service.title}
+              summary={service.summary}
+              excerpt={service.excerpt}
+              price={service.price}
+              duration={service.duration}
+              tags={service.tags}
+              slug={service.slug}
+              category="repair"
+            />
+          ))}
+        </div>
+      </section>
+
+      <!-- Additional Services -->
+      <section class="bg-white rounded-lg shadow-md p-8">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-display font-bold text-primary mb-4">
+            Additional Services
+          </h2>
+          <p class="text-lg text-gray-600">
+            We offer a wide range of automotive services to meet all your needs.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="text-center p-6 bg-surface rounded-lg">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Free Estimates</h3>
+            <p class="text-sm text-gray-600">Get a free estimate for any repair or service.</p>
+          </div>
+
+          <div class="text-center p-6 bg-surface rounded-lg">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Diagnostic Services</h3>
+            <p class="text-sm text-gray-600">Advanced computer diagnostics for all makes and models.</p>
+          </div>
+
+          <div class="text-center p-6 bg-surface rounded-lg">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Warranty</h3>
+            <p class="text-sm text-gray-600">All work comes with a comprehensive warranty.</p>
+          </div>
+
+          <div class="text-center p-6 bg-surface rounded-lg">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Customer Service</h3>
+            <p class="text-sm text-gray-600">Dedicated customer service and support.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="text-center mt-16">
+        <h2 class="text-3xl font-display font-bold text-primary mb-4">
+          Ready to Schedule Your Service?
+        </h2>
+        <p class="text-lg text-gray-600 mb-8">
+          Contact us today to schedule your appointment or get a free estimate.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/appointments" 
+            class="inline-flex items-center justify-center px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Book Appointment
+          </a>
+          <a 
+            href="/contact" 
+            class="inline-flex items-center justify-center px-8 py-4 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Contact Us
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout> 

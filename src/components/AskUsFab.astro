@@ -1,0 +1,199 @@
+---
+// This is a demo component for the "Ask Us" floating action button
+---
+
+<div class="fixed bottom-6 right-6 z-50">
+  <!-- Main FAB -->
+  <button
+    id="ask-us-fab"
+    class="bg-accent text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+    aria-label="Ask us a question"
+    aria-expanded="false"
+    aria-controls="chat-drawer"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+  </button>
+
+  <!-- Demo Label -->
+  <div class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-primary text-white text-xs rounded-lg whitespace-nowrap">
+    Demo AI hook
+    <div class="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary"></div>
+  </div>
+</div>
+
+<!-- Chat Drawer -->
+<div
+  id="chat-drawer"
+  class="fixed inset-0 z-40 hidden"
+  aria-hidden="true"
+>
+  <!-- Backdrop -->
+  <div 
+    class="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
+    id="chat-backdrop"
+  ></div>
+
+  <!-- Drawer Content -->
+  <div class="absolute bottom-0 right-0 w-full max-w-md h-96 bg-white rounded-t-lg shadow-2xl transform translate-y-full transition-transform duration-300">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.233C2.493 12.79 2 11.884 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Ask a Tech</h3>
+          <p class="text-sm text-gray-500">Real-time answers coming soon</p>
+        </div>
+      </div>
+      <button
+        id="close-chat"
+        class="text-gray-400 hover:text-gray-600 transition-colors"
+        aria-label="Close chat"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="flex-1 p-4 space-y-4 overflow-y-auto" id="chat-messages">
+      <div class="flex items-start space-x-3">
+        <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.233C2.493 12.79 2 11.884 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+          <p class="text-sm text-gray-800">Hi! I'm here to help with your auto repair questions. What can I assist you with today?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="p-4 border-t border-gray-200">
+      <form id="chat-form" class="flex space-x-2">
+        <input
+          type="text"
+          id="chat-input"
+          placeholder="Type your question..."
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+          disabled
+        />
+        <button
+          type="submit"
+          class="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+        </button>
+      </form>
+      <p class="text-xs text-gray-500 mt-2 text-center">Demo mode - real AI integration coming soon</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fab = document.getElementById('ask-us-fab');
+    const drawer = document.getElementById('chat-drawer');
+    const backdrop = document.getElementById('chat-backdrop');
+    const closeBtn = document.getElementById('close-chat');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    let isOpen = false;
+
+    function openChat() {
+      isOpen = true;
+      drawer.classList.remove('hidden');
+      fab.setAttribute('aria-expanded', 'true');
+      
+      // Animate drawer
+      setTimeout(() => {
+        const drawerContent = drawer.querySelector('.max-w-md');
+        if (drawerContent) {
+          drawerContent.classList.remove('translate-y-full');
+        }
+      }, 10);
+    }
+
+    function closeChat() {
+      isOpen = false;
+      const drawerContent = drawer.querySelector('.max-w-md');
+      if (drawerContent) {
+        drawerContent.classList.add('translate-y-full');
+      }
+      
+      setTimeout(() => {
+        drawer.classList.add('hidden');
+        fab.setAttribute('aria-expanded', 'false');
+      }, 300);
+    }
+
+    // Event listeners
+    fab.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+    backdrop.addEventListener('click', closeChat);
+
+    // Demo form submission
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      // Add user message
+      const userMessage = document.createElement('div');
+      userMessage.className = 'flex items-start space-x-3 justify-end';
+      userMessage.innerHTML = `
+        <div class="bg-accent text-white rounded-lg p-3 max-w-xs">
+          <p class="text-sm">${message}</p>
+        </div>
+        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      `;
+      chatMessages.appendChild(userMessage);
+
+      // Clear input
+      chatInput.value = '';
+
+      // Demo response
+      setTimeout(() => {
+        const botMessage = document.createElement('div');
+        botMessage.className = 'flex items-start space-x-3';
+        botMessage.innerHTML = `
+          <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.233C2.493 12.79 2 11.884 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+            <p class="text-sm text-gray-800">Thanks for your question! This is a demo - real AI responses will be available soon. For immediate assistance, please call us at (650) 961-0302.</p>
+          </div>
+        `;
+        chatMessages.appendChild(botMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeChat();
+      }
+    });
+  });
+</script> 

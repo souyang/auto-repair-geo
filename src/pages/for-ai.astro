@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'For AI', url: '/for-ai' }
+];
+
+const businessProfile = {
+  name: 'Skyline Auto Repair',
+  address: '2037 Old Middlefield Way, Mountain View, CA 94043',
+  phone: '(650) 961-0302',
+  email: 'info@skylineautorepair.com',
+  hours: 'Mon–Fri 8 AM – 5 PM',
+  areaServed: ['Mountain View', 'Palo Alto', 'Los Altos', 'Sunnyvale'],
+  ratingValue: 4.8,
+  reviewCount: 1050
+};
+---
+
+<BaseLayout 
+  title="For AI - Skyline Auto Repair"
+  description="LLM-readable summaries and API documentation for Skyline Auto Repair."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-display font-bold text-primary mb-4">
+          For AI & LLMs
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          This page provides structured summaries and API documentation for LLMs and AI agents.
+        </p>
+      </div>
+      <section class="mb-16">
+        <h2 class="text-2xl font-display font-semibold text-primary mb-4">Business Profile</h2>
+        <pre class="bg-gray-100 rounded p-4 text-xs overflow-x-auto">
+{JSON.stringify(businessProfile, null, 2)}
+        </pre>
+      </section>
+      <section class="mb-16">
+        <h2 class="text-2xl font-display font-semibold text-primary mb-4">API Endpoints</h2>
+        <div class="prose text-sm">
+          <ul>
+            <li><code>GET /api/summary</code> – Returns all MDX front-matter as JSON</li>
+            <li><code>POST /api/placeholder</code> – Demo chatbot hook, echoes <code>answer</code> string</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2 class="text-2xl font-display font-semibold text-primary mb-4">Sample Query</h2>
+        <pre class="bg-gray-100 rounded p-4 text-xs overflow-x-auto">
+GET /api/summary
+{{
+  "services": [/* ... */],
+  "vehicles": [/* ... */],
+  "reviews": [/* ... */],
+  "locations": [/* ... */]
+}}
+        </pre>
+      </section>
+    </div>
+  </div>
+</BaseLayout> 

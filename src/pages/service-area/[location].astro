@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getEntryBySlug, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const locations = await getCollection('locations');
+  return locations.map(loc => ({ params: { location: loc.slug } }));
+}
+
+const { params } = Astro;
+const location = params.location;
+const area = await getEntryBySlug('locations' as const, location);
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Service Area', url: '/service-area' },
+  { label: area?.data?.name ?? location, url: `/service-area/${location}` }
+];
+---
+
+<BaseLayout 
+  title={`Auto Repair in ${area?.data.name ?? location} - Skyline Auto Repair`}
+  description={area?.data.description ?? `Trusted auto repair and maintenance for ${location}.`}
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-display font-bold text-primary mb-4">
+          Auto Repair in {area?.data.name ?? location}
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {area?.data.description ?? `Skyline Auto Repair proudly serves the ${location} area with expert auto repair and maintenance services.`}
+        </p>
+      </div>
+      <div class="prose mx-auto">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

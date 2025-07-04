@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getEntryBySlug, getCollection } from 'astro:content';
+import { Astro } from 'astro';
+
+export async function getStaticPaths() {
+  const vehicles = await getCollection('vehicles');
+  return vehicles.map(v => ({ params: { make: v.slug } }));
+}
+
+const { params } = Astro;
+const make = params.make;
+const vehicle = await getEntryBySlug('vehicles' as const, make);
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Vehicles', url: '/vehicles' },
+  { label: vehicle?.data?.make ?? make, url: `/vehicles/${make}` }
+];
+---
+
+<BaseLayout 
+  title={`Service for ${vehicle?.data.make ?? make} Vehicles - Skyline Auto Repair`}
+  description={vehicle?.data.description ?? `Expert service and repair for ${make} vehicles in Mountain View, CA.`}
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-display font-bold text-primary mb-4">
+          {vehicle?.data.make ?? make} Service & Repair
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {vehicle?.data.description ?? `We provide expert maintenance and repair for all ${make} models.`}
+        </p>
+      </div>
+      {vehicle?.data.image && (
+        <img src={vehicle.data.image} alt={`${vehicle.data.make} vehicles`} class="mx-auto rounded-lg shadow mb-8 max-w-md" loading="lazy" />
+      )}
+      <div class="prose mx-auto">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

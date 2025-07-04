@@ -1,0 +1,265 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Contact Us", description = "Get in touch with us for any questions or to schedule an appointment." } = Astro.props;
+---
+
+<div class="bg-white rounded-lg shadow-md p-8">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-display font-bold text-primary mb-4">{title}</h2>
+    <p class="text-gray-600">{description}</p>
+  </div>
+
+  <form 
+    name="contact" 
+    method="POST" 
+    data-netlify="true" 
+    netlify-honeypot="bot-field"
+    class="space-y-6"
+  >
+    <input type="hidden" name="form-name" value="contact" />
+    <p class="hidden">
+      <label>
+        Don't fill this out if you're human: <input name="bot-field" />
+      </label>
+    </p>
+
+    <!-- Name and Email Row -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="name" class="block text-sm font-medium text-primary mb-2">
+          Full Name *
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+          aria-describedby="name-error"
+        />
+        <div id="name-error" class="hidden text-red-600 text-sm mt-1" role="alert"></div>
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-primary mb-2">
+          Email Address *
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+          aria-describedby="email-error"
+        />
+        <div id="email-error" class="hidden text-red-600 text-sm mt-1" role="alert"></div>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label for="phone" class="block text-sm font-medium text-primary mb-2">
+        Phone Number
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+        aria-describedby="phone-error"
+      />
+      <div id="phone-error" class="hidden text-red-600 text-sm mt-1" role="alert"></div>
+    </div>
+
+    <!-- Vehicle Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="make" class="block text-sm font-medium text-primary mb-2">
+          Vehicle Make
+        </label>
+        <select
+          id="make"
+          name="make"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+        >
+          <option value="">Select Make</option>
+          <option value="Toyota">Toyota</option>
+          <option value="Honda">Honda</option>
+          <option value="Lexus">Lexus</option>
+          <option value="Nissan">Nissan</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="model" class="block text-sm font-medium text-primary mb-2">
+          Vehicle Model
+        </label>
+        <input
+          type="text"
+          id="model"
+          name="model"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+        />
+      </div>
+    </div>
+
+    <!-- Service Type -->
+    <div>
+      <label for="service" class="block text-sm font-medium text-primary mb-2">
+        Service Needed
+      </label>
+      <select
+        id="service"
+        name="service"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+      >
+        <option value="">Select Service</option>
+        <option value="Oil Change">Oil Change</option>
+        <option value="Brake Service">Brake Service</option>
+        <option value="Engine Diagnostics">Engine Diagnostics</option>
+        <option value="Timing Belt">Timing Belt</option>
+        <option value="Hybrid/EV Service">Hybrid/EV Service</option>
+        <option value="Scheduled Maintenance">Scheduled Maintenance</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label for="message" class="block text-sm font-medium text-primary mb-2">
+        Message *
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors resize-none"
+        placeholder="Please describe your service needs or any questions you have..."
+        aria-describedby="message-error"
+      ></textarea>
+      <div id="message-error" class="hidden text-red-600 text-sm mt-1" role="alert"></div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
+        Send Message
+      </button>
+    </div>
+  </form>
+
+  <!-- Success/Error Messages -->
+  <div id="form-success" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+      </svg>
+      <p class="text-green-800">Thank you! Your message has been sent successfully.</p>
+    </div>
+  </div>
+
+  <div id="form-error" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+      </svg>
+      <p class="text-red-800">Sorry, there was an error sending your message. Please try again.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Form validation and submission handling
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form[name="contact"]');
+    const successMessage = document.getElementById('form-success');
+    const errorMessage = document.getElementById('form-error');
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Basic validation
+        const name = form.querySelector('#name') as HTMLInputElement;
+        const email = form.querySelector('#email') as HTMLInputElement;
+        const message = form.querySelector('#message') as HTMLTextAreaElement;
+        
+        let isValid = true;
+        
+        // Clear previous errors
+        document.querySelectorAll('[id$="-error"]').forEach(el => {
+          el.classList.add('hidden');
+          el.textContent = '';
+        });
+        
+        // Validate name
+        if (!name.value.trim()) {
+          const nameError = document.getElementById('name-error');
+          if (nameError) {
+            nameError.textContent = 'Name is required';
+            nameError.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value)) {
+          const emailError = document.getElementById('email-error');
+          if (emailError) {
+            emailError.textContent = 'Please enter a valid email address';
+            emailError.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        // Validate message
+        if (!message.value.trim()) {
+          const messageError = document.getElementById('message-error');
+          if (messageError) {
+            messageError.textContent = 'Message is required';
+            messageError.classList.remove('hidden');
+          }
+          isValid = false;
+        }
+        
+        if (isValid) {
+          // Submit form
+          const formData = new FormData(form);
+          
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData as any).toString()
+          })
+          .then(response => {
+            if (response.ok) {
+              form.reset();
+              if (successMessage) successMessage.classList.remove('hidden');
+              if (errorMessage) errorMessage.classList.add('hidden');
+            } else {
+              throw new Error('Network response was not ok');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            if (errorMessage) errorMessage.classList.remove('hidden');
+            if (successMessage) successMessage.classList.add('hidden');
+          });
+        }
+      });
+    }
+  });
+</script> 
