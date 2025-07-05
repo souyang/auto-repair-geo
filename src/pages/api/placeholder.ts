@@ -1,4 +1,4 @@
-import type { APIRoute } from "astro";
+import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
     }),
     {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );

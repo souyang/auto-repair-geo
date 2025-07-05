@@ -1,4 +1,4 @@
-import { z, defineCollection } from "astro:content";
+import { z, defineCollection } from 'astro:content';
 
 const serviceSchema = z.object({
   title: z.string(),
@@ -7,7 +7,7 @@ const serviceSchema = z.object({
   tags: z.array(z.string()),
   price: z.string().optional(),
   duration: z.string().optional(),
-  category: z.enum(["maintenance", "repair"]),
+  category: z.enum(['maintenance', 'repair']),
   faqs: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
   image: z.string().optional(),
 });
@@ -38,8 +38,8 @@ const locationSchema = z.object({
 });
 
 export const collections = {
-  services: defineCollection({ type: "content", schema: serviceSchema }),
-  vehicles: defineCollection({ type: "content", schema: vehicleSchema }),
-  reviews: defineCollection({ type: "content", schema: reviewSchema }),
-  locations: defineCollection({ type: "content", schema: locationSchema }),
+  services: defineCollection({ type: 'content', schema: serviceSchema }),
+  vehicles: defineCollection({ type: 'content', schema: vehicleSchema }),
+  reviews: defineCollection({ type: 'content', schema: reviewSchema }),
+  locations: defineCollection({ type: 'content', schema: locationSchema }),
 };

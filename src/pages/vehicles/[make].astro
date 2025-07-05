@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getEntryBySlug, getCollection } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const vehicles = await getCollection('vehicles');
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
 const { params } = Astro;
 const make = (params as { make: string }).make;
-const vehicle = await getEntryBySlug('vehicles' as const, make);
+const vehicle = await getEntry('vehicles', make);
 
 // Render the MDX content
 const { Content } = await vehicle!.render();

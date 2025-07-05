@@ -239,10 +239,15 @@ const { title = "Contact Us", description = "Get in touch with us for any questi
           // Submit form
           const formData = new FormData(form as HTMLFormElement);
           
+          const formDataObj: Record<string, string> = {};
+          for (const [key, value] of formData.entries()) {
+            formDataObj[key] = value.toString();
+          }
+          
           fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData as any).toString()
+            body: new URLSearchParams(formDataObj).toString()
           })
           .then(response => {
             if (response.ok) {

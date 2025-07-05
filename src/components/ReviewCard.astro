@@ -5,10 +5,9 @@ export interface Props {
   date: string;
   text: string;
   vehicle: string;
-  id: number;
 }
 
-const { author, rating, date, text, vehicle, id } = Astro.props;
+const { author, rating, date, text, vehicle } = Astro.props;
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString('en-US', {

@@ -51,30 +51,30 @@ const { faqs, title = "Frequently Asked Questions" } = Astro.props;
   // FAQ Accordion functionality
   document.addEventListener('DOMContentLoaded', () => {
     const faqToggles = document.querySelectorAll('[data-faq-toggle]');
-    
+  
     faqToggles.forEach(toggle => {
       toggle.addEventListener('click', () => {
         const targetId = toggle.getAttribute('data-faq-target');
         const target = document.getElementById(targetId);
         const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
         const icon = toggle.querySelector('svg');
-        
+  
         // Toggle aria-expanded
         toggle.setAttribute('aria-expanded', (!isExpanded).toString());
-        
+  
         // Toggle content visibility
         if (target) {
           target.classList.toggle('hidden');
         }
-        
+  
         // Rotate icon
         if (icon) {
           icon.classList.toggle('rotate-180');
         }
       });
-      
+  
       // Keyboard support
-      toggle.addEventListener('keydown', (e) => {
+      toggle.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           toggle.click();
