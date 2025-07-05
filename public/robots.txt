@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://skylineautorepair.com/sitemap-index.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /services/
+Allow: /vehicles/
+Allow: /service-area/
+Allow: /reviews/
+Allow: /contact/
+Allow: /about/
+Allow: /appointments/
+Allow: /specials/ 
