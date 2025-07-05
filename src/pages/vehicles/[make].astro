@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getEntryBySlug, getCollection } from 'astro:content';
-import { Astro } from 'astro';
 
 export async function getStaticPaths() {
   const vehicles = await getCollection('vehicles');
@@ -10,8 +9,11 @@ export async function getStaticPaths() {
 }
 
 const { params } = Astro;
-const make = params.make;
+const make = (params as { make: string }).make;
 const vehicle = await getEntryBySlug('vehicles' as const, make);
+
+// Render the MDX content
+const { Content } = await vehicle!.render();
 
 const breadcrumbItems = [
   { label: 'Home', url: '/' },
@@ -39,7 +41,7 @@ const breadcrumbItems = [
         <img src={vehicle.data.image} alt={`${vehicle.data.make} vehicles`} class="mx-auto rounded-lg shadow mb-8 max-w-md" loading="lazy" />
       )}
       <div class="prose mx-auto">
-        <slot />
+        <Content />
       </div>
     </div>
   </div>

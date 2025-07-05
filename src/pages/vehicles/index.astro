@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+// Get all vehicle entries
+const vehicles = await getCollection('vehicles');
+const sortedVehicles = vehicles.sort((a, b) => a.data.make.localeCompare(b.data.make));
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Vehicles', url: '/vehicles' }
+];
+---
+
+<BaseLayout 
+  title="Vehicle Services - Expert Auto Repair for All Makes & Models | Skyline Auto Repair"
+  description="Professional auto repair services for all vehicle makes including Toyota, Honda, BMW, Mercedes-Benz, and more. Expert technicians serving Mountain View and the Bay Area."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-display font-bold text-primary mb-6">
+          Vehicle Services
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          Expert auto repair and maintenance for all vehicle makes and models. Our certified technicians provide professional service with genuine parts and advanced diagnostics.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 text-sm">
+          <div class="bg-accent/10 text-accent px-4 py-2 rounded-full">
+            <span class="font-medium">✓ Factory-trained technicians</span>
+          </div>
+          <div class="bg-accent/10 text-accent px-4 py-2 rounded-full">
+            <span class="font-medium">✓ Genuine OEM parts</span>
+          </div>
+          <div class="bg-accent/10 text-accent px-4 py-2 rounded-full">
+            <span class="font-medium">✓ Advanced diagnostics</span>
+          </div>
+          <div class="bg-accent/10 text-accent px-4 py-2 rounded-full">
+            <span class="font-medium">✓ Warranty protection</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle Grid -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-display font-bold text-primary mb-8 text-center">
+          Vehicle Makes We Service
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {sortedVehicles.map(vehicle => (
+            <a 
+              href={`/vehicles/${vehicle.slug}`}
+              class="group bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-accent/30 overflow-hidden"
+            >
+              <div class="p-6 text-center">
+                <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
+                  <svg class="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-primary group-hover:text-accent transition-colors mb-2">
+                  {vehicle.data.make}
+                </h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  {vehicle.data.models.slice(0, 3).join(', ')}
+                  {vehicle.data.models.length > 3 && ' & more'}
+                </p>
+                <div class="text-xs text-accent font-medium">
+                  Learn More →
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Services Section -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-display font-bold text-primary mb-8 text-center">
+          Our Services
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-primary mb-3">Routine Maintenance</h3>
+            <p class="text-gray-600 mb-4">
+              Oil changes, fluid services, brake inspections, and preventive maintenance to keep your vehicle running smoothly.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• Oil & filter changes</li>
+              <li>• Brake inspection & repair</li>
+              <li>• Tire rotation & balancing</li>
+              <li>• Fluid level checks</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-primary mb-3">Diagnostics & Repair</h3>
+            <p class="text-gray-600 mb-4">
+              Advanced diagnostic equipment and expert technicians to identify and repair complex issues.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• Engine diagnostics</li>
+              <li>• Transmission service</li>
+              <li>• Electrical system repair</li>
+              <li>• Computer diagnostics</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-primary mb-3">Specialized Services</h3>
+            <p class="text-gray-600 mb-4">
+              Specialized services including air conditioning, suspension, and exhaust system work.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• Air conditioning service</li>
+              <li>• Suspension & steering</li>
+              <li>• Exhaust system repair</li>
+              <li>• Performance upgrades</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Choose Us Section -->
+      <div class="bg-white rounded-lg shadow-md p-8 mb-16">
+        <h2 class="text-2xl font-display font-bold text-primary mb-8 text-center">
+          Why Choose Skyline Auto Repair?
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-2">Factory-Trained Technicians</h3>
+                <p class="text-gray-600">Our certified technicians have extensive training and experience with all major vehicle makes and models.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-2">Genuine Parts & Warranties</h3>
+                <p class="text-gray-600">We use genuine OEM parts and high-quality alternatives, backed by comprehensive warranties on all work.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-2">Advanced Diagnostics</h3>
+                <p class="text-gray-600">State-of-the-art diagnostic equipment ensures accurate problem identification and efficient repairs.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-2">Transparent Pricing</h3>
+                <p class="text-gray-600">No hidden fees or surprises. We provide detailed estimates and clear communication throughout the repair process.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="text-center bg-accent rounded-lg p-8 text-white">
+        <h2 class="text-2xl font-display font-bold mb-4">
+          Ready to Schedule Your Service?
+        </h2>
+        <p class="text-lg mb-6 opacity-90">
+          Contact us today to schedule an appointment or get a quote for your vehicle.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="bg-white text-accent px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Schedule Appointment
+          </a>
+          <a 
+            href="tel:+16505551234" 
+            class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-accent transition-colors"
+          >
+            Call Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

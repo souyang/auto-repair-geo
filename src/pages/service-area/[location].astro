@@ -12,6 +12,9 @@ const { params } = Astro;
 const location = (params as { location: string }).location;
 const area = await getEntryBySlug('locations' as const, location);
 
+// Render the MDX content
+const { Content } = await area!.render();
+
 const breadcrumbItems = [
   { label: 'Home', url: '/' },
   { label: 'Service Area', url: '/service-area' },
@@ -35,7 +38,7 @@ const breadcrumbItems = [
         </p>
       </div>
       <div class="prose mx-auto">
-        <slot />
+        <Content />
       </div>
     </div>
   </div>
