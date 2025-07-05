@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1F2937',   // Charcoal
-        accent: '#8B1E24',    // Deep red
-        surface: '#F7F7F7',   // Light gray
+        primary: '#1C2C4C',   // Navy
+        accent: '#3ABEF9',    // Sky Blue
+        surface: '#F4F4F4',   // Light Gray
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
