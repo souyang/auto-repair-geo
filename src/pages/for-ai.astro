@@ -49,18 +49,92 @@ const businessProfile = {
           </ul>
         </div>
       </section>
-      <section>
+      <section class="mb-16">
         <h2 class="text-2xl font-display font-semibold text-primary mb-4">Sample Query</h2>
-        <pre class="bg-gray-100 rounded p-4 text-xs overflow-x-auto">
-GET /api/summary
-{{
-  "services": [/* ... */],
-  "vehicles": [/* ... */],
-  "reviews": [/* ... */],
-  "locations": [/* ... */]
-}}
+        <div class="mb-4">
+          <button id="fetchApiBtn" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
+            Fetch API Data
+          </button>
+          <span id="loadingStatus" class="ml-4 text-gray-600 hidden">Loading...</span>
+        </div>
+        <pre id="apiResult" class="bg-gray-100 rounded p-4 text-xs overflow-x-auto hidden">
         </pre>
       </section>
+
+      <section>
+        <h2 class="text-2xl font-display font-semibold text-primary mb-4">Sample Response Structure</h2>
+        <pre class="bg-gray-100 rounded p-4 text-xs overflow-x-auto">{`{
+  "services": [
+    {
+      "title": "Oil Change & Filter",
+      "summary": "Full-synthetic oil change with premium filter replacement.",
+      "excerpt": "Keep your engine running smoothly with our comprehensive oil change service.",
+      "tags": ["Maintenance", "Oil Change", "Mountain View"],
+      "price": "$49.99",
+      "duration": "30 min",
+      "category": "maintenance"
+    }
+  ],
+  "vehicles": [
+    {
+      "make": "Honda",
+      "models": ["Civic", "Accord", "CR-V", "Pilot", "Odyssey", "HR-V", "Passport"],
+      "image": "/images/vehicles/honda.jpg",
+      "description": "Reliable Honda service and repair, from compact cars to family SUVs."
+    }
+  ],
+  "reviews": [
+    {
+      "author": "Sarah M.",
+      "rating": 5,
+      "date": "2024-01-15",
+      "text": "Excellent service! They diagnosed and fixed my check engine light quickly. Very professional and honest about pricing.",
+      "vehicle": "2018 Toyota Camry",
+      "featured": true
+    }
+  ],
+  "locations": [
+    {
+      "name": "Palo Alto",
+      "slug": "palo-alto",
+      "address": "2450 El Camino Real, Palo Alto, CA 94306",
+      "coordinates": {
+        "lat": 37.4419,
+        "lng": -122.143
+      },
+      "description": "Convenient Palo Alto location serving Stanford and the surrounding tech community."
+    }
+  ]
+}`}</pre>
+      </section>
+
+      <script>
+        document.getElementById('fetchApiBtn')?.addEventListener('click', async () => {
+          const btn = document.getElementById('fetchApiBtn') as HTMLButtonElement;
+          const loading = document.getElementById('loadingStatus');
+          const result = document.getElementById('apiResult');
+          
+          if (!btn || !loading || !result) return;
+          
+          btn.disabled = true;
+          loading.classList.remove('hidden');
+          result.classList.add('hidden');
+          
+          try {
+            const response = await fetch('/api/summary');
+            const data = await response.json();
+            
+            result.textContent = JSON.stringify(data, null, 2);
+            result.classList.remove('hidden');
+          } catch (error) {
+            result.textContent = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`;
+            result.classList.remove('hidden');
+          } finally {
+            btn.disabled = false;
+            loading.classList.add('hidden');
+          }
+        });
+      </script>
     </div>
   </div>
 </BaseLayout> 

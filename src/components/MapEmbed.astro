@@ -14,7 +14,8 @@ const {
 } = Astro.props;
 
 const encodedAddress = encodeURIComponent(address);
-const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=${encodedAddress}`;
+// Fallback to static map if no API key is provided
+const mapUrl = `https://maps.google.com/maps?q=${encodedAddress}&output=embed`;
 ---
 
 <div class={`w-full ${className}`}>

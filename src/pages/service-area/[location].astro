@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 }
 
 const { params } = Astro;
-const location = params.location;
+const location = (params as { location: string }).location;
 const area = await getEntryBySlug('locations' as const, location);
 
 const breadcrumbItems = [
