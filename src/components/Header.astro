@@ -11,7 +11,7 @@ const serviceAreas = [
 ];
 ---
 
-<header class="bg-white shadow-md sticky top-0 z-40">
+<header class="bg-surface shadow-md sticky top-0 z-40">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center py-4">
       <!-- Logo -->
@@ -29,39 +29,39 @@ const serviceAreas = [
 
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
-        <a href="/" class={`text-sm font-medium transition-colors ${currentPath === '/' ? 'text-accent' : 'text-primary hover:text-accent'}`}>Home</a>
-        <a href="/about" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/about') ? 'text-accent' : 'text-primary hover:text-accent'}`}>About</a>
-        <a href="/services" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/services') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Services</a>
+        <a href="/" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath === '/' ? 'text-accent' : 'text-primary hover:text-accent'}`}>Home</a>
+        <a href="/about" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/about') ? 'text-accent' : 'text-primary hover:text-accent'}`}>About</a>
+        <a href="/services" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/services') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Services</a>
         <!-- Vehicles Dropdown -->
         <div class="relative group">
-          <a href="/vehicles" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/vehicles') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Vehicles</a>
-          <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+          <a href="/vehicles" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/vehicles') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Vehicles</a>
+          <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
             <ul class="py-2">
               {vehicleMakes.map(make => (
                 <li>
-                  <a href={`/vehicles/${make.toLowerCase()}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface">{make}</a>
+                  <a href={`/vehicles/${make.toLowerCase()}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">{make}</a>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <a href="/specials" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/specials') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Specials</a>
-        <a href="/reviews" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/reviews') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Reviews</a>
+        <a href="/specials" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/specials') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Specials</a>
+        <a href="/reviews" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/reviews') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Reviews</a>
         <!-- Service Area Dropdown -->
         <div class="relative group">
-          <a href="/service-area" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/service-area') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Service Area</a>
-          <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+          <a href="/service-area" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/service-area') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Service Area</a>
+          <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
             <ul class="py-2">
               {serviceAreas.map(area => (
                 <li>
-                  <a href={`/service-area/${area.slug}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface">{area.name}</a>
+                  <a href={`/service-area/${area.slug}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">{area.name}</a>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <a href="/contact" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/contact') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Contact</a>
-        <a href="/for-ai" class={`text-sm font-medium transition-colors ${currentPath.startsWith('/for-ai') ? 'text-accent' : 'text-primary hover:text-accent'}`}>For AI</a>
+        <a href="/contact" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/contact') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Contact</a>
+        <a href="/for-ai" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/for-ai') ? 'text-accent' : 'text-primary hover:text-accent'}`}>For AI</a>
       </nav>
 
       <!-- Phone CTA -->
@@ -141,4 +141,23 @@ const serviceAreas = [
       mobileMenu.classList.toggle('hidden');
     });
   }
-</script> 
+</script>
+
+<style>
+  /* Improved dropdown hover behavior */
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Add a small delay before hiding the dropdown */
+  .group .group-hover\:opacity-100 {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  
+  /* Ensure dropdown stays visible when hovering over dropdown items */
+  .group .group-hover\:opacity-100:hover {
+    opacity: 1;
+    visibility: visible;
+  }
+</style> 
