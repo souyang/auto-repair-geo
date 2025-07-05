@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Check Engine Light', url: '/check-engine-light' }
+];
+
+const commonCodes = [
+  {
+    code: "P0300",
+    title: "Random/Multiple Cylinder Misfire",
+    description: "Engine misfiring in multiple cylinders",
+    causes: ["Faulty spark plugs", "Bad ignition coils", "Clogged fuel injectors", "Low fuel pressure"],
+    urgency: "High"
+  },
+  {
+    code: "P0171/P0174", 
+    title: "System Too Lean",
+    description: "Air/fuel mixture is too lean",
+    causes: ["Dirty mass airflow sensor", "Vacuum leak", "Faulty oxygen sensor", "Clogged fuel filter"],
+    urgency: "Medium"
+  },
+  {
+    code: "P0420",
+    title: "Catalyst System Efficiency Below Threshold",
+    description: "Catalytic converter not working properly",
+    causes: ["Faulty catalytic converter", "Bad oxygen sensor", "Engine running rich", "Exhaust leak"],
+    urgency: "Medium"
+  },
+  {
+    code: "P0442",
+    title: "Small Evap Leak",
+    description: "Small leak in evaporative emission system",
+    causes: ["Loose gas cap", "Cracked evap hose", "Faulty purge valve", "Leaking fuel tank"],
+    urgency: "Low"
+  }
+];
+---
+
+<BaseLayout 
+  title="Check Engine Light On? Here's What to Do | Skyline Auto Repair"
+  description="Your check engine light is on - don't panic! Learn what causes check engine lights, common diagnostic codes, and when to seek professional help. Expert diagnosis in Mountain View, CA."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      
+      <div class="text-center mb-12">
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary mb-4">
+          Check Engine Light On? Here's What to Do
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Don't ignore that check engine light! Learn what it means, common causes, and when to seek professional diagnosis.
+        </p>
+      </div>
+
+      <!-- Emergency Alert -->
+      <div class="bg-red-50 border-l-4 border-red-400 p-6 mb-8">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-lg font-medium text-red-800">Emergency Warning</h3>
+            <p class="text-red-700 mt-2">
+              If your check engine light is <strong>flashing</strong>, stop driving immediately and call us. A flashing light indicates a serious problem that could damage your engine.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- What to Do First -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-display font-bold text-primary mb-6">
+          What to Do When Your Check Engine Light Comes On
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-display font-semibold text-primary mb-4">Immediate Steps</h3>
+            <ol class="space-y-3 text-gray-700">
+              <li class="flex items-start">
+                <span class="bg-accent text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
+                <span>Check if the light is steady or flashing</span>
+              </li>
+              <li class="flex items-start">
+                <span class="bg-accent text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
+                <span>Look for obvious issues (loose gas cap, unusual noises)</span>
+              </li>
+              <li class="flex items-start">
+                <span class="bg-accent text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
+                <span>Check your gas cap - a loose cap is a common cause</span>
+              </li>
+              <li class="flex items-start">
+                <span class="bg-accent text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4</span>
+                <span>Schedule a diagnostic appointment within a few days</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-display font-semibold text-primary mb-4">When to Seek Immediate Help</h3>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <span>Flashing check engine light</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <span>Engine running rough or stalling</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <span>Loss of power or poor performance</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <span>Unusual noises or smells</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Common Causes -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-display font-bold text-primary mb-6">
+          Common Check Engine Light Causes
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-display font-semibold text-primary mb-2">Loose Gas Cap</h3>
+            <p class="text-gray-600 text-sm">The most common cause. Tighten your gas cap and drive for a few days to see if the light goes off.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-display font-semibold text-primary mb-2">Faulty Oxygen Sensor</h3>
+            <p class="text-gray-600 text-sm">Monitors exhaust gases. A bad sensor can reduce fuel economy and cause emissions issues.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-display font-semibold text-primary mb-2">Catalytic Converter</h3>
+            <p class="text-gray-600 text-sm">Reduces harmful emissions. Failure can cause poor performance and increased emissions.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-display font-semibold text-primary mb-2">Mass Airflow Sensor</h3>
+            <p class="text-gray-600 text-sm">Measures air entering the engine. A dirty sensor can cause poor fuel economy and performance.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-display font-semibold text-primary mb-2">Spark Plugs/Ignition</h3>
+            <p class="text-gray-600 text-sm">Worn spark plugs or faulty ignition coils can cause misfires and poor performance.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-display font-semibold text-primary mb-2">Evaporative System</h3>
+            <p class="text-gray-600 text-sm">Controls fuel vapor emissions. Leaks can cause the check engine light to come on.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Common Diagnostic Codes -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-display font-bold text-primary mb-6">
+          Common Diagnostic Trouble Codes
+        </h2>
+        
+        <div class="space-y-4">
+          {commonCodes.map(code => (
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="text-lg font-display font-semibold text-primary mb-2">
+                    {code.code} - {code.title}
+                  </h3>
+                  <p class="text-gray-600 mb-3">{code.description}</p>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Common Causes:</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                      {code.causes.map(cause => (
+                        <li>{cause}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div class={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  code.urgency === 'High' ? 'bg-red-100 text-red-800' :
+                  code.urgency === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-green-100 text-green-800'
+                }`}>
+                  {code.urgency} Priority
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Diagnostic Process -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-display font-bold text-primary mb-6">
+          Our Diagnostic Process
+        </h2>
+        
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-display font-semibold text-primary mb-4">What We Do</h3>
+              <ol class="space-y-4 text-gray-700">
+                <li class="flex items-start">
+                  <span class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
+                  <div>
+                    <strong>Computer Scan:</strong> Connect our diagnostic scanner to read trouble codes
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <span class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
+                  <div>
+                    <strong>Code Analysis:</strong> Interpret the codes and identify the root cause
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <span class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
+                  <div>
+                    <strong>Visual Inspection:</strong> Check for obvious issues and component condition
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <span class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4</span>
+                  <div>
+                    <strong>Repair Options:</strong> Provide detailed estimate with repair options
+                  </div>
+                </li>
+              </ol>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-display font-semibold text-primary mb-4">Why Choose Our Diagnostics?</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Latest diagnostic equipment for all makes and models</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>ASE-certified technicians with years of experience</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Diagnostic fee applied toward any repairs</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Honest recommendations - we won't sell you unnecessary repairs</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+        <h3 class="text-2xl font-display font-bold text-primary mb-4">
+          Need Check Engine Light Diagnosis?
+        </h3>
+        <p class="text-gray-600 mb-6">
+          Don't ignore that check engine light! Our expert technicians can quickly diagnose the problem and get you back on the road safely.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={`tel:${SITE.phone.replace(/\D/g, '')}`}
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Call {SITE.phone}
+          </a>
+          <a 
+            href="/appointments" 
+            class="inline-flex items-center justify-center px-6 py-3 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Schedule Diagnostic
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

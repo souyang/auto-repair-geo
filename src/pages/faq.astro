@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'FAQ', url: '/faq' }
+];
+
+const faqCategories = [
+  {
+    title: "General Auto Repair",
+    faqs: [
+      {
+        q: "How often should I get my oil changed?",
+        a: "Most modern vehicles require oil changes every 5,000-7,500 miles with synthetic oil, or every 3,000-5,000 miles with conventional oil. Check your owner's manual for specific recommendations."
+      },
+      {
+        q: "What's the difference between a diagnostic fee and repair cost?",
+        a: "A diagnostic fee covers the time and equipment needed to identify the problem. The repair cost covers the actual parts and labor to fix the issue. We apply the diagnostic fee toward any repairs you choose to have done."
+      },
+      {
+        q: "Do you offer warranties on your work?",
+        a: "Yes, we provide comprehensive warranties on all parts and labor. Most repairs come with a 12-month/12,000-mile warranty, and some parts have longer manufacturer warranties."
+      },
+      {
+        q: "How long do most repairs take?",
+        a: "Simple services like oil changes take 30-60 minutes. Brake jobs typically take 2-4 hours. Engine work can take 4-8 hours or more. We'll give you a specific timeline when you schedule your appointment."
+      }
+    ]
+  },
+  {
+    title: "Emergency Services",
+    faqs: [
+      {
+        q: "What should I do if my check engine light comes on?",
+        a: "If the light is steady, schedule service soon but it's usually safe to drive. If the light is flashing, stop driving immediately and call us - this indicates a serious problem that could damage your engine."
+      },
+      {
+        q: "My car won't start - what could be wrong?",
+        a: "Common causes include a dead battery, faulty starter, fuel pump issues, or ignition problems. Try jumping the battery first. If that doesn't work, call us for a diagnostic appointment."
+      },
+      {
+        q: "My brakes feel soft - is this dangerous?",
+        a: "Yes, soft brakes are a safety concern. This could indicate air in the brake lines, worn brake pads, or a brake fluid leak. Schedule an inspection immediately - don't drive if the pedal goes to the floor."
+      },
+      {
+        q: "What if my car overheats while driving?",
+        a: "Pull over immediately and turn off the engine. Don't open the radiator cap while hot. Call us for emergency service. Driving an overheated engine can cause severe damage."
+      }
+    ]
+  },
+  {
+    title: "Service Intervals",
+    faqs: [
+      {
+        q: "What's included in a 30k mile service?",
+        a: "30k service typically includes oil change, filter replacement, fluid level checks, brake inspection, tire rotation, and a comprehensive safety inspection. We follow manufacturer recommendations."
+      },
+      {
+        q: "When should I replace my timing belt?",
+        a: "Most timing belts should be replaced every 60,000-100,000 miles. Check your owner's manual for specific intervals. Replacing it on schedule prevents expensive engine damage."
+      },
+      {
+        q: "How often should I check my tire pressure?",
+        a: "Check tire pressure monthly and before long trips. Proper inflation improves fuel economy, handling, and tire life. We check pressure during every service visit."
+      },
+      {
+        q: "When do I need to replace brake pads?",
+        a: "Brake pads typically last 25,000-65,000 miles depending on driving conditions. We inspect brake condition during every service and will notify you when replacement is needed."
+      }
+    ]
+  },
+  {
+    title: "Pricing & Estimates",
+    faqs: [
+      {
+        q: "Do you provide free estimates?",
+        a: "Yes, we provide free estimates for most repairs. For complex diagnostics, there may be a small fee that we apply toward any repairs you choose to have done."
+      },
+      {
+        q: "Why do repair costs vary so much?",
+        a: "Costs vary based on parts quality (OEM vs aftermarket), labor complexity, and vehicle make/model. We'll explain your options and recommend the best value for your situation."
+      },
+      {
+        q: "Do you accept insurance for collision repairs?",
+        a: "We work with most major insurance companies for collision repairs. Contact us with your insurance information and we'll help coordinate the claim process."
+      },
+      {
+        q: "Are your prices competitive with dealerships?",
+        a: "Yes, our prices are typically 20-40% lower than dealership rates while using the same quality parts and providing the same level of expertise."
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout 
+  title="Auto Repair FAQ - Common Questions Answered | Skyline Auto Repair"
+  description="Get answers to common auto repair questions. Expert advice on maintenance, emergency situations, service intervals, and pricing from Mountain View's trusted auto repair shop."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      
+      <div class="text-center mb-12">
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary mb-4">
+          Frequently Asked Questions
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Get expert answers to common auto repair questions. Can't find what you're looking for? Call us at {SITE.phone} for personalized assistance.
+        </p>
+      </div>
+
+      <div class="space-y-12">
+        {faqCategories.map(category => (
+          <section>
+            <h2 class="text-2xl font-display font-bold text-primary mb-6">
+              {category.title}
+            </h2>
+            <FaqAccordion faqs={category.faqs} />
+          </section>
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-white rounded-lg shadow-lg p-8 mt-12 text-center">
+        <h3 class="text-2xl font-display font-bold text-primary mb-4">
+          Still Have Questions?
+        </h3>
+        <p class="text-gray-600 mb-6">
+          Our ASE-certified technicians are here to help with any auto repair questions or concerns.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={`tel:${SITE.phone.replace(/\D/g, '')}`}
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Call {SITE.phone}
+          </a>
+          <a 
+            href="/appointments" 
+            class="inline-flex items-center justify-center px-6 py-3 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Schedule Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 
