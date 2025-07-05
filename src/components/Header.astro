@@ -1,21 +1,28 @@
 ---
 import { SITE } from '../config/site';
+import { getCollection } from 'astro:content';
 
 const currentPath = Astro.url.pathname;
-const vehicleMakes = ['Toyota', 'Honda', 'Lexus', 'Nissan', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Ford', 'Chevrolet', 'Acura', 'Infiniti', 'Mazda', 'Subaru', 'Hyundai', 'Kia'];
-const serviceAreas = [
-  { name: 'Mountain View', slug: 'mountain-view' },
-  { name: 'Palo Alto', slug: 'palo-alto' },
-  { name: 'Los Altos', slug: 'los-altos' },
-  { name: 'Sunnyvale', slug: 'sunnyvale' },
-  { name: 'San Jose', slug: 'san-jose' },
-  { name: 'Saratoga', slug: 'saratoga' },
-  { name: 'Campbell', slug: 'campbell' },
-  { name: 'Cupertino', slug: 'cupertino' },
-  { name: 'Menlo Park', slug: 'menlo-park' },
-  { name: 'Redwood City', slug: 'redwood-city' },
-  { name: 'Santa Clara', slug: 'santa-clara' },
-];
+
+// Fetch vehicle makes from the vehicles collection
+const allVehicles = await getCollection('vehicles');
+const vehicleMakes = allVehicles.map(vehicle => vehicle.data.make).sort();
+
+// Fetch service areas from the locations collection
+const allLocations = await getCollection('locations');
+const serviceAreas = allLocations
+  .map(location => ({
+    name: location.data.name,
+    slug: location.data.slug || location.slug
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+// Fetch all services and group by category
+const allServices = await getCollection('services');
+const servicesByCategory = {
+  maintenance: allServices.filter(service => service.data.category === 'maintenance'),
+  repair: allServices.filter(service => service.data.category === 'repair')
+};
 ---
 
 <header class="bg-surface shadow-md sticky top-0 z-40">
@@ -38,14 +45,76 @@ const serviceAreas = [
       <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
         <a href="/" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath === '/' ? 'text-accent' : 'text-primary hover:text-accent'}`}>Home</a>
         <a href="/about" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/about') ? 'text-accent' : 'text-primary hover:text-accent'}`}>About</a>
-        <a href="/services" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/services') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Services</a>
+        <!-- Services Dropdown -->
+        <div class="relative group">
+          <a href="/services" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/services') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Services</a>
+          <div class="absolute left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <div class="py-2 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+              <!-- Maintenance Services -->
+              <div class="px-4 py-2">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Maintenance</h3>
+                <ul class="space-y-1">
+                  {servicesByCategory.maintenance.map(service => (
+                    <li>
+                      <a 
+                        href={`/services/maintenance/${service.slug}`} 
+                        class="block px-2 py-1 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary rounded"
+                      >
+                        {service.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <!-- Divider -->
+              <div class="border-t border-gray-200 my-2"></div>
+              
+              <!-- Repair Services -->
+              <div class="px-4 py-2">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Repair</h3>
+                <ul class="space-y-1">
+                  {servicesByCategory.repair.map(service => (
+                    <li>
+                      <a 
+                        href={`/services/repair/${service.slug}`} 
+                        class="block px-2 py-1 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary rounded"
+                      >
+                        {service.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <!-- View All Services Link -->
+              <div class="border-t border-gray-200 mt-2 pt-2">
+                <a 
+                  href="/services" 
+                  class="block px-4 py-2 text-sm font-medium text-accent hover:bg-surface rounded"
+                >
+                  View All Services →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Vehicles Dropdown -->
         <div class="relative group">
           <a href="/vehicles" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/vehicles') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Vehicles</a>
-          <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
-            <ul class="py-2">
+          <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <!-- Typeahead Filter -->
+            <div class="p-3 border-b border-gray-200">
+              <input 
+                type="text" 
+                placeholder="Type to filter..." 
+                class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                data-filter="vehicles"
+              />
+            </div>
+            <ul class="py-2 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="vehicles">
               {vehicleMakes.map(make => (
-                <li>
+                <li data-item={make.toLowerCase()}>
                   <a href={`/vehicles/${make.toLowerCase()}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">{make}</a>
                 </li>
               ))}
@@ -57,10 +126,19 @@ const serviceAreas = [
         <!-- Service Area Dropdown -->
         <div class="relative group">
           <a href="/service-area" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/service-area') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Service Area</a>
-          <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
-            <ul class="py-2">
+          <div class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <!-- Typeahead Filter -->
+            <div class="p-3 border-b border-gray-200">
+              <input 
+                type="text" 
+                placeholder="Type to filter..." 
+                class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                data-filter="service-areas"
+              />
+            </div>
+            <ul class="py-2 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="service-areas">
               {serviceAreas.map(area => (
-                <li>
+                <li data-item={area.name.toLowerCase()}>
                   <a href={`/service-area/${area.slug}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">{area.name}</a>
                 </li>
               ))}
@@ -100,10 +178,40 @@ const serviceAreas = [
       <nav class="space-y-2" aria-label="Mobile navigation">
         <a href="/" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath === '/' ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Home</a>
         <a href="/about" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/about') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>About</a>
-        <a href="/services" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/services') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Services</a>
+        <div>
+          <span class="block px-3 py-2 text-base font-medium text-primary">Services</span>
+          <div class="pl-4">
+            <!-- Maintenance Services -->
+            <div class="mb-2">
+              <span class="block px-3 py-1 text-sm font-medium text-gray-500 uppercase tracking-wide">Maintenance</span>
+              <ul class="pl-4">
+                {servicesByCategory.maintenance.map(service => (
+                  <li>
+                    <a href={`/services/maintenance/${service.slug}`} class="block px-3 py-1 text-sm text-primary hover:bg-surface">{service.data.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <!-- Repair Services -->
+            <div>
+              <span class="block px-3 py-1 text-sm font-medium text-gray-500 uppercase tracking-wide">Repair</span>
+              <ul class="pl-4">
+                {servicesByCategory.repair.map(service => (
+                  <li>
+                    <a href={`/services/repair/${service.slug}`} class="block px-3 py-1 text-sm text-primary hover:bg-surface">{service.data.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <!-- View All Services Link -->
+            <div class="mt-2 pt-2 border-t border-gray-200">
+              <a href="/services" class="block px-3 py-1 text-sm font-medium text-accent hover:bg-surface">View All Services →</a>
+            </div>
+          </div>
+        </div>
         <div>
           <span class="block px-3 py-2 text-base font-medium text-primary">Vehicles</span>
-          <ul class="pl-4">
+          <ul class="pl-4 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {vehicleMakes.map(make => (
               <li>
                 <a href={`/vehicles/${make.toLowerCase()}`} class="block px-3 py-2 text-sm text-primary hover:bg-surface">{make}</a>
@@ -115,7 +223,7 @@ const serviceAreas = [
         <a href="/reviews" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/reviews') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Reviews</a>
         <div>
           <span class="block px-3 py-2 text-base font-medium text-primary">Service Area</span>
-          <ul class="pl-4">
+          <ul class="pl-4 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {serviceAreas.map(area => (
               <li>
                 <a href={`/service-area/${area.slug}`} class="block px-3 py-2 text-sm text-primary hover:bg-surface">{area.name}</a>
@@ -149,23 +257,99 @@ const serviceAreas = [
       mobileMenu.classList.toggle('hidden');
     });
   }
+
+  // Typeahead filtering functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterInputs = document.querySelectorAll('[data-filter]');
+    
+    filterInputs.forEach(input => {
+      const filterType = input.getAttribute('data-filter');
+      const list = document.querySelector(`[data-list="${filterType}"]`);
+      
+      if (!list) return;
+      
+      input.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        const searchTerm = target.value.toLowerCase().trim();
+        const items = list.querySelectorAll('[data-item]');
+        
+        items.forEach(item => {
+          const itemText = item.getAttribute('data-item');
+          const link = item.querySelector('a') as HTMLElement;
+          
+          if (searchTerm === '' || (itemText && itemText.includes(searchTerm))) {
+            (item as HTMLElement).style.display = 'block';
+            if (link) link.style.opacity = '1';
+          } else {
+            (item as HTMLElement).style.display = 'none';
+            if (link) link.style.opacity = '0.5';
+          }
+        });
+      });
+      
+      // Clear filter when dropdown closes
+      const dropdown = input.closest('.group');
+      if (dropdown) {
+        const observer = new MutationObserver(() => {
+          if (!dropdown.classList.contains('group-hover:opacity-100')) {
+            (input as HTMLInputElement).value = '';
+            const items = list.querySelectorAll('[data-item]');
+            items.forEach(item => {
+              (item as HTMLElement).style.display = 'block';
+              const link = item.querySelector('a') as HTMLElement;
+              if (link) link.style.opacity = '1';
+            });
+          }
+        });
+        
+        observer.observe(dropdown, {
+          attributes: true,
+          attributeFilter: ['class']
+        });
+      }
+    });
+  });
 </script>
 
 <style>
   /* Improved dropdown hover behavior */
   .group:hover .group-hover\:opacity-100 {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   
-  /* Add a small delay before hiding the dropdown */
-  .group .group-hover\:opacity-100 {
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-  }
-  
-  /* Ensure dropdown stays visible when hovering over dropdown items */
+  /* Ensure dropdown stays visible when hovering over the dropdown menu */
   .group .group-hover\:opacity-100:hover {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Add a small gap to prevent the dropdown from disappearing */
+  .group .group-hover\:opacity-100 {
+    margin-top: 0.5rem;
+  }
+  
+  /* Ensure the dropdown menu has proper pointer events */
+  .group .group-hover\:opacity-100 {
+    pointer-events: auto;
+  }
+  
+  /* Typeahead filter input styling */
+  [data-filter] {
+    transition: all 0.2s ease;
+  }
+  
+  [data-filter]:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+  
+  /* Smooth transitions for filtered items */
+  [data-item] {
+    transition: opacity 0.2s ease, display 0.2s ease;
+  }
+  
+  /* Highlight matching text */
+  [data-item] a {
+    transition: opacity 0.2s ease;
   }
 </style> 

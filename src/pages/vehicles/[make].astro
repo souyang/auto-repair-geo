@@ -37,9 +37,7 @@ const breadcrumbItems = [
           {vehicle?.data.description ?? `We provide expert maintenance and repair for all ${make} models.`}
         </p>
       </div>
-      {vehicle?.data.image && (
-        <img src={vehicle.data.image} alt={`${vehicle.data.make} vehicles`} class="mx-auto rounded-lg shadow mb-8 max-w-md" loading="lazy" />
-      )}
+
       <div class="prose mx-auto">
         <Content />
       </div>
