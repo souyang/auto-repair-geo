@@ -32,7 +32,7 @@ This document outlines the comprehensive strategy to make your auto repair websi
   "business": {
     "name": "Skyline Auto Repair",
     "address": "500 Castro St, Mountain View, CA 94041",
-    "phone": "(650) 961-0302",
+    "phone": "(424) 475-9376",
     "ratingValue": 4.8,
     "reviewCount": 1050
   },
