@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../config/site';
+
+// Fetch all content for sitemap
+const allServices = await getCollection('services');
+const allVehicles = await getCollection('vehicles');
+const allLocations = await getCollection('locations');
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Sitemap', url: '/sitemap' }
+];
+---
+
+<BaseLayout 
+  title="Sitemap | Skyline Auto Repair"
+  description="Complete sitemap of Skyline Auto Repair website. Find all pages, services, vehicle information, and service areas."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary mb-4">
+          Sitemap
+        </h1>
+        <p class="text-xl text-gray-600">
+          Complete directory of all pages on our website
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Main Pages -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-display font-semibold text-primary mb-4">Main Pages</h2>
+          <ul class="space-y-2">
+            <li><a href="/" class="text-accent hover:underline">Home</a></li>
+            <li><a href="/about" class="text-accent hover:underline">About Us</a></li>
+            <li><a href="/contact" class="text-accent hover:underline">Contact</a></li>
+            <li><a href="/specials" class="text-accent hover:underline">Specials</a></li>
+            <li><a href="/reviews" class="text-accent hover:underline">Reviews</a></li>
+            <li><a href="/appointments" class="text-accent hover:underline">Book Appointment</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-display font-semibold text-primary mb-4">Services</h2>
+          <ul class="space-y-2">
+            <li><a href="/services" class="text-accent hover:underline">All Services</a></li>
+            {allServices.slice(0, 6).map(service => (
+              <li>
+                <a href={`/services/${service.data.category}/${service.slug}`} class="text-accent hover:underline">
+                  {service.data.title}
+                </a>
+              </li>
+            ))}
+            {allServices.length > 6 && (
+              <li><a href="/services" class="text-accent hover:underline">View All Services →</a></li>
+            )}
+          </ul>
+        </div>
+
+        <!-- Vehicles -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-display font-semibold text-primary mb-4">Vehicles</h2>
+          <ul class="space-y-2">
+            <li><a href="/vehicles" class="text-accent hover:underline">All Vehicles</a></li>
+            {allVehicles.slice(0, 6).map(vehicle => (
+              <li>
+                <a href={`/vehicles/${vehicle.data.make.toLowerCase()}`} class="text-accent hover:underline">
+                  {vehicle.data.make}
+                </a>
+              </li>
+            ))}
+            {allVehicles.length > 6 && (
+              <li><a href="/vehicles" class="text-accent hover:underline">View All Vehicles →</a></li>
+            )}
+          </ul>
+        </div>
+
+        <!-- Service Areas -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-display font-semibold text-primary mb-4">Service Areas</h2>
+          <ul class="space-y-2">
+            <li><a href="/service-area" class="text-accent hover:underline">All Service Areas</a></li>
+            {allLocations.slice(0, 6).map(location => (
+              <li>
+                <a href={`/service-area/${location.data.slug || location.slug}`} class="text-accent hover:underline">
+                  {location.data.name}
+                </a>
+              </li>
+            ))}
+            {allLocations.length > 6 && (
+              <li><a href="/service-area" class="text-accent hover:underline">View All Areas →</a></li>
+            )}
+          </ul>
+        </div>
+
+        <!-- Guides & Resources -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-display font-semibold text-primary mb-4">Guides & Resources</h2>
+          <ul class="space-y-2">
+            <li><a href="/check-engine-light" class="text-accent hover:underline">Check Engine Light Guide</a></li>
+            <li><a href="/dealer-vs-independent" class="text-accent hover:underline">Dealer vs Independent</a></li>
+            <li><a href="/faq" class="text-accent hover:underline">FAQ</a></li>
+            <li><a href="/best-auto-repair-mountain-view" class="text-accent hover:underline">Best Auto Repair in Mountain View</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal & Technical -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-display font-semibold text-primary mb-4">Legal & Technical</h2>
+          <ul class="space-y-2">
+            <li><a href="/privacy" class="text-accent hover:underline">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-accent hover:underline">Terms of Service</a></li>
+            <li><a href="/accessibility" class="text-accent hover:underline">Accessibility</a></li>
+            <li><a href="/for-ai" class="text-accent hover:underline">For AI</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="bg-white rounded-lg shadow-lg p-8 mt-8 text-center">
+        <h3 class="text-2xl font-display font-bold text-primary mb-4">
+          Need Auto Repair Services?
+        </h3>
+        <p class="text-gray-600 mb-6">
+          Contact us today for honest, reliable auto repair in Mountain View and surrounding areas.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={`tel:${SITE.phone.replace(/\D/g, '')}`}
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Call {SITE.phone}
+          </a>
+          <a 
+            href="/appointments" 
+            class="inline-flex items-center justify-center px-6 py-3 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Book Appointment
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

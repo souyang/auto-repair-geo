@@ -44,111 +44,305 @@ const servicesByCategory = {
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
         <a href="/" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath === '/' ? 'text-accent' : 'text-primary hover:text-accent'}`}>Home</a>
-        <a href="/about" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/about') ? 'text-accent' : 'text-primary hover:text-accent'}`}>About</a>
         <!-- Services Dropdown -->
         <div class="relative group">
-          <a href="/services" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/services') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Services</a>
-          <div class="absolute left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-            <div class="py-2 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <a href="/services" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/services') || currentPath.startsWith('/vehicles') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Services</a>
+          <div class="absolute left-0 mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 backdrop-blur-sm">
+            <div class="py-4 max-h-[32rem] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               <!-- Maintenance Services -->
-              <div class="px-4 py-2">
-                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Maintenance</h3>
-                <ul class="space-y-1">
-                  {servicesByCategory.maintenance.map(service => (
-                    <li>
-                      <a 
-                        href={`/services/maintenance/${service.slug}`} 
-                        class="block px-2 py-1 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary rounded"
-                      >
-                        {service.data.title}
-                      </a>
-                    </li>
-                  ))}
+              <div class="px-6 py-3">
+                <button 
+                  class="flex items-center justify-between w-full text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 hover:text-accent transition-colors group"
+                  data-collapse-toggle="maintenance"
+                  aria-expanded="false"
+                >
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Maintenance</span>
+                  </div>
+                  <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <ul class="space-y-2 hidden" data-collapse-content="maintenance">
+                  <!-- Maintenance Search Filter -->
+                  <div class="mb-3">
+                    <div class="relative">
+                      <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input 
+                        type="text" 
+                        placeholder="Search maintenance..." 
+                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                        data-filter="maintenance"
+                      />
+                    </div>
+                  </div>
+                  <ul class="space-y-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="maintenance">
+                    {servicesByCategory.maintenance.map(service => (
+                      <li data-item={service.data.title.toLowerCase()}>
+                        <a 
+                          href={`/services/maintenance/${service.slug}`} 
+                          class="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent rounded-lg transition-all duration-200 group"
+                        >
+                          <div class="w-2 h-2 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                          <span class="group-hover:translate-x-1 transition-transform duration-200">{service.data.title}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </ul>
               </div>
               
               <!-- Divider -->
-              <div class="border-t border-gray-200 my-2"></div>
+              <div class="mx-6 border-t border-gray-200/60"></div>
               
               <!-- Repair Services -->
-              <div class="px-4 py-2">
-                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Repair</h3>
-                <ul class="space-y-1">
-                  {servicesByCategory.repair.map(service => (
-                    <li>
-                      <a 
-                        href={`/services/repair/${service.slug}`} 
-                        class="block px-2 py-1 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary rounded"
-                      >
-                        {service.data.title}
-                      </a>
-                    </li>
-                  ))}
+              <div class="px-6 py-3">
+                <button 
+                  class="flex items-center justify-between w-full text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 hover:text-accent transition-colors group"
+                  data-collapse-toggle="repair"
+                  aria-expanded="false"
+                >
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Repair</span>
+                  </div>
+                  <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <ul class="space-y-2 hidden" data-collapse-content="repair">
+                  <!-- Repair Search Filter -->
+                  <div class="mb-3">
+                    <div class="relative">
+                      <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input 
+                        type="text" 
+                        placeholder="Search repair..." 
+                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                        data-filter="repair"
+                      />
+                    </div>
+                  </div>
+                  <ul class="space-y-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="repair">
+                    {servicesByCategory.repair.map(service => (
+                      <li data-item={service.data.title.toLowerCase()}>
+                        <a 
+                          href={`/services/repair/${service.slug}`} 
+                          class="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent rounded-lg transition-all duration-200 group"
+                        >
+                          <div class="w-2 h-2 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                          <span class="group-hover:translate-x-1 transition-transform duration-200">{service.data.title}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </ul>
               </div>
               
+              <!-- Divider -->
+              <div class="mx-6 border-t border-gray-200/60"></div>
+              
+              <!-- Vehicles Section -->
+              <div class="px-6 py-3">
+                <button 
+                  class="flex items-center justify-between w-full text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 hover:text-accent transition-colors group"
+                  data-collapse-toggle="vehicles"
+                  aria-expanded="false"
+                >
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                    </svg>
+                    <span>Vehicles We Service</span>
+                  </div>
+                  <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="hidden" data-collapse-content="vehicles">
+                  <!-- Vehicle Search Filter -->
+                  <div class="mb-3">
+                    <div class="relative">
+                      <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input 
+                        type="text" 
+                        placeholder="Search vehicles..." 
+                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                        data-filter="vehicles"
+                      />
+                    </div>
+                  </div>
+                  <ul class="space-y-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="vehicles">
+                    {vehicleMakes.map(make => (
+                      <li data-item={make.toLowerCase()}>
+                        <a 
+                          href={`/vehicles/${make.toLowerCase()}`} 
+                          class="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent rounded-lg transition-all duration-200 group"
+                        >
+                          <div class="w-2 h-2 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                          <span class="group-hover:translate-x-1 transition-transform duration-200">{make}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Divider -->
+              <div class="mx-6 border-t border-gray-200/60"></div>
+              
+              <!-- Service Area Section -->
+              <div class="px-6 py-3">
+                <button 
+                  class="flex items-center justify-between w-full text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 hover:text-accent transition-colors group"
+                  data-collapse-toggle="service-area"
+                  aria-expanded="false"
+                >
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Service Area</span>
+                  </div>
+                  <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="hidden" data-collapse-content="service-area">
+                  <!-- Service Area Search Filter -->
+                  <div class="mb-3">
+                    <div class="relative">
+                      <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input 
+                        type="text" 
+                        placeholder="Search service areas..." 
+                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                        data-filter="service-areas"
+                      />
+                    </div>
+                  </div>
+                  <ul class="space-y-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="service-areas">
+                    {serviceAreas.map(area => (
+                      <li data-item={area.name.toLowerCase()}>
+                        <a 
+                          href={`/service-area/${area.slug}`} 
+                          class="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent rounded-lg transition-all duration-200 group"
+                        >
+                          <div class="w-2 h-2 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                          <span class="group-hover:translate-x-1 transition-transform duration-200">{area.name}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Divider -->
+              <div class="mx-6 border-t border-gray-200/60"></div>
+              
+              <!-- Guides Section -->
+              <div class="px-6 py-3">
+                <button 
+                  class="flex items-center justify-between w-full text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 hover:text-accent transition-colors group"
+                  data-collapse-toggle="guides"
+                  aria-expanded="false"
+                >
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <span>Guides</span>
+                  </div>
+                  <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="hidden" data-collapse-content="guides">
+                  <!-- Guides Search Filter -->
+                  <div class="mb-3">
+                    <div class="relative">
+                      <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input 
+                        type="text" 
+                        placeholder="Search guides..." 
+                        class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                        data-filter="guides"
+                      />
+                    </div>
+                  </div>
+                  <ul class="space-y-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="guides">
+                    <li data-item="check engine light guide">
+                      <a 
+                        href="/check-engine-light" 
+                        class="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent rounded-lg transition-all duration-200 group"
+                      >
+                        <div class="w-2 h-2 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-200">Check Engine Light Guide</span>
+                      </a>
+                    </li>
+                    <li data-item="dealer vs independent">
+                      <a 
+                        href="/dealer-vs-independent" 
+                        class="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent rounded-lg transition-all duration-200 group"
+                      >
+                        <div class="w-2 h-2 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-200">Dealer vs Independent</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
               <!-- View All Services Link -->
-              <div class="border-t border-gray-200 mt-2 pt-2">
+              <div class="mx-6 mt-4 pt-4 border-t border-gray-200/60">
                 <a 
                   href="/services" 
-                  class="block px-4 py-2 text-sm font-medium text-accent hover:bg-surface rounded"
+                  class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium text-accent hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 rounded-lg transition-all duration-200 group"
                 >
-                  View All Services →
+                  <span>View All Services</span>
+                  <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <!-- Vehicles Dropdown -->
-        <div class="relative group">
-          <a href="/vehicles" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/vehicles') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Vehicles</a>
-          <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-            <!-- Typeahead Filter -->
-            <div class="p-3 border-b border-gray-200">
-              <input 
-                type="text" 
-                placeholder="Type to filter..." 
-                class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
-                data-filter="vehicles"
-              />
-            </div>
-            <ul class="py-2 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="vehicles">
-              {vehicleMakes.map(make => (
-                <li data-item={make.toLowerCase()}>
-                  <a href={`/vehicles/${make.toLowerCase()}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">{make}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <a href="/appointments" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/appointments') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Appointments</a>
         <a href="/specials" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/specials') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Specials</a>
-        <a href="/reviews" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/reviews') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Reviews</a>
-        <a href="/check-engine-light" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/check-engine-light') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Check Engine Light</a>
-        <a href="/dealer-vs-independent" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/dealer-vs-independent') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Dealer vs Independent</a>
-        <!-- Service Area Dropdown -->
+        <!-- About Dropdown -->
         <div class="relative group">
-          <a href="/service-area" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/service-area') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Service Area</a>
-          <div class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-            <!-- Typeahead Filter -->
-            <div class="p-3 border-b border-gray-200">
-              <input 
-                type="text" 
-                placeholder="Type to filter..." 
-                class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
-                data-filter="service-areas"
-              />
-            </div>
-            <ul class="py-2 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" data-list="service-areas">
-              {serviceAreas.map(area => (
-                <li data-item={area.name.toLowerCase()}>
-                  <a href={`/service-area/${area.slug}`} class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">{area.name}</a>
-                </li>
-              ))}
+          <a href="/about" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/about') || currentPath.startsWith('/contact') ? 'text-accent' : 'text-primary hover:text-accent'}`}>About</a>
+          <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <ul class="py-2">
+              <li>
+                <a href="/about" class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">About Us</a>
+              </li>
+              <li>
+                <a href="/contact" class="block px-4 py-2 text-sm text-primary hover:bg-surface hover:underline hover:underline-offset-4 hover:decoration-primary">Contact Us</a>
+              </li>
             </ul>
           </div>
         </div>
-        <a href="/contact" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/contact') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Contact</a>
-        <a href="/for-ai" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/for-ai') ? 'text-accent' : 'text-primary hover:text-accent'}`}>For AI</a>
+        <a href="/reviews" class={`text-sm font-medium transition-colors hover:underline hover:underline-offset-4 hover:decoration-primary ${currentPath.startsWith('/reviews') ? 'text-accent' : 'text-primary hover:text-accent'}`}>Reviews</a>
       </nav>
 
       <!-- Phone CTA -->
@@ -179,64 +373,270 @@ const servicesByCategory = {
     <div id="mobile-menu" class="hidden md:hidden pb-4">
       <nav class="space-y-2" aria-label="Mobile navigation">
         <a href="/" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath === '/' ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Home</a>
-        <a href="/about" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/about') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>About</a>
         <div>
           <span class="block px-3 py-2 text-base font-medium text-primary">Services</span>
           <div class="pl-4">
             <!-- Maintenance Services -->
-            <div class="mb-2">
-              <span class="block px-3 py-1 text-sm font-medium text-gray-500 uppercase tracking-wide">Maintenance</span>
-              <ul class="pl-4">
-                {servicesByCategory.maintenance.map(service => (
-                  <li>
-                    <a href={`/services/maintenance/${service.slug}`} class="block px-3 py-1 text-sm text-primary hover:bg-surface">{service.data.title}</a>
-                  </li>
-                ))}
+            <div class="mb-3">
+              <button 
+                class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-600 uppercase tracking-wide hover:text-accent transition-colors group"
+                data-collapse-toggle="mobile-maintenance"
+                aria-expanded="false"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Maintenance</span>
+                </div>
+                <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul class="pl-8 hidden space-y-1" data-collapse-content="mobile-maintenance">
+                <!-- Maintenance Search Filter -->
+                <div class="px-3 py-2">
+                  <div class="relative">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input 
+                      type="text" 
+                      placeholder="Search maintenance..." 
+                      class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                      data-filter="mobile-maintenance"
+                    />
+                  </div>
+                </div>
+                <ul class="pl-8 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-1" data-list="mobile-maintenance">
+                  {servicesByCategory.maintenance.map(service => (
+                    <li data-item={service.data.title.toLowerCase()}>
+                      <a href={`/services/maintenance/${service.slug}`} class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200 group">
+                        <div class="w-1.5 h-1.5 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-200">{service.data.title}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </ul>
             </div>
             <!-- Repair Services -->
-            <div>
-              <span class="block px-3 py-1 text-sm font-medium text-gray-500 uppercase tracking-wide">Repair</span>
-              <ul class="pl-4">
-                {servicesByCategory.repair.map(service => (
-                  <li>
-                    <a href={`/services/repair/${service.slug}`} class="block px-3 py-1 text-sm text-primary hover:bg-surface">{service.data.title}</a>
-                  </li>
-                ))}
+            <div class="mb-3">
+              <button 
+                class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-600 uppercase tracking-wide hover:text-accent transition-colors group"
+                data-collapse-toggle="mobile-repair"
+                aria-expanded="false"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Repair</span>
+                </div>
+                <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul class="pl-8 hidden space-y-1" data-collapse-content="mobile-repair">
+                <!-- Repair Search Filter -->
+                <div class="px-3 py-2">
+                  <div class="relative">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input 
+                      type="text" 
+                      placeholder="Search repair..." 
+                      class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                      data-filter="mobile-repair"
+                    />
+                  </div>
+                </div>
+                <ul class="pl-8 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-1" data-list="mobile-repair">
+                  {servicesByCategory.repair.map(service => (
+                    <li data-item={service.data.title.toLowerCase()}>
+                      <a href={`/services/repair/${service.slug}`} class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200 group">
+                        <div class="w-1.5 h-1.5 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-200">{service.data.title}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </ul>
             </div>
+            <!-- Vehicles Section -->
+            <div>
+              <button 
+                class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-600 uppercase tracking-wide hover:text-accent transition-colors group"
+                data-collapse-toggle="mobile-vehicles"
+                aria-expanded="false"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                  </svg>
+                  <span>Vehicles We Service</span>
+                </div>
+                <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="hidden" data-collapse-content="mobile-vehicles">
+                <!-- Vehicle Search Filter -->
+                <div class="px-3 py-2">
+                  <div class="relative">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input 
+                      type="text" 
+                      placeholder="Search vehicles..." 
+                      class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                      data-filter="mobile-vehicles"
+                    />
+                  </div>
+                </div>
+                <ul class="pl-8 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-1" data-list="mobile-vehicles">
+                  {vehicleMakes.map(make => (
+                    <li data-item={make.toLowerCase()}>
+                      <a href={`/vehicles/${make.toLowerCase()}`} class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200 group">
+                        <div class="w-1.5 h-1.5 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-200">{make}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <!-- Service Area Section -->
+            <div>
+              <button 
+                class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-600 uppercase tracking-wide hover:text-accent transition-colors group"
+                data-collapse-toggle="mobile-service-area"
+                aria-expanded="false"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Service Area</span>
+                </div>
+                <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="hidden" data-collapse-content="mobile-service-area">
+                <!-- Service Area Search Filter -->
+                <div class="px-3 py-2">
+                  <div class="relative">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input 
+                      type="text" 
+                      placeholder="Search service areas..." 
+                      class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                      data-filter="mobile-service-areas"
+                    />
+                  </div>
+                </div>
+                <ul class="pl-8 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-1" data-list="mobile-service-areas">
+                  {serviceAreas.map(area => (
+                    <li data-item={area.name.toLowerCase()}>
+                      <a href={`/service-area/${area.slug}`} class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200 group">
+                        <div class="w-1.5 h-1.5 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                        <span class="group-hover:translate-x-1 transition-transform duration-200">{area.name}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <!-- Guides Section -->
+            <div>
+              <button 
+                class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-600 uppercase tracking-wide hover:text-accent transition-colors group"
+                data-collapse-toggle="mobile-guides"
+                aria-expanded="false"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <span>Guides</span>
+                </div>
+                <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="hidden" data-collapse-content="mobile-guides">
+                <!-- Guides Search Filter -->
+                <div class="px-3 py-2">
+                  <div class="relative">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input 
+                      type="text" 
+                      placeholder="Search guides..." 
+                      class="w-full pl-10 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent bg-gray-50 hover:bg-white transition-colors"
+                      data-filter="mobile-guides"
+                    />
+                  </div>
+                </div>
+                <ul class="pl-8 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 space-y-1" data-list="mobile-guides">
+                  <li data-item="check engine light guide">
+                    <a href="/check-engine-light" class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200 group">
+                      <div class="w-1.5 h-1.5 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                      <span class="group-hover:translate-x-1 transition-transform duration-200">Check Engine Light Guide</span>
+                    </a>
+                  </li>
+                  <li data-item="dealer vs independent">
+                    <a href="/dealer-vs-independent" class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200 group">
+                      <div class="w-1.5 h-1.5 bg-accent/60 rounded-full group-hover:bg-accent transition-colors"></div>
+                      <span class="group-hover:translate-x-1 transition-transform duration-200">Dealer vs Independent</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
             <!-- View All Services Link -->
-            <div class="mt-2 pt-2 border-t border-gray-200">
-              <a href="/services" class="block px-3 py-1 text-sm font-medium text-accent hover:bg-surface">View All Services →</a>
+            <div class="mt-3 pt-3 border-t border-gray-200/60">
+              <a href="/services" class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-all duration-200 group">
+                <span>View All Services</span>
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
-        <div>
-          <span class="block px-3 py-2 text-base font-medium text-primary">Vehicles</span>
-          <ul class="pl-4 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            {vehicleMakes.map(make => (
-              <li>
-                <a href={`/vehicles/${make.toLowerCase()}`} class="block px-3 py-2 text-sm text-primary hover:bg-surface">{make}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <a href="/appointments" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/appointments') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Appointments</a>
         <a href="/specials" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/specials') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Specials</a>
-        <a href="/reviews" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/reviews') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Reviews</a>
-        <a href="/check-engine-light" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/check-engine-light') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Check Engine Light</a>
-        <a href="/dealer-vs-independent" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/dealer-vs-independent') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Dealer vs Independent</a>
         <div>
-          <span class="block px-3 py-2 text-base font-medium text-primary">Service Area</span>
-          <ul class="pl-4 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            {serviceAreas.map(area => (
-              <li>
-                <a href={`/service-area/${area.slug}`} class="block px-3 py-2 text-sm text-primary hover:bg-surface">{area.name}</a>
-              </li>
-            ))}
+          <button 
+            class="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-primary hover:text-accent transition-colors group"
+            data-collapse-toggle="mobile-about"
+            aria-expanded="false"
+          >
+            <span>About</span>
+            <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <ul class="pl-8 hidden space-y-1" data-collapse-content="mobile-about">
+            <li>
+              <a href="/about" class="block px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200">About Us</a>
+            </li>
+            <li>
+              <a href="/contact" class="block px-3 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-accent rounded-lg transition-all duration-200">Contact</a>
+            </li>
           </ul>
         </div>
-        <a href="/contact" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/contact') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Contact</a>
-        <a href="/for-ai" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/for-ai') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>For AI</a>
+        <a href="/reviews" class={`block px-3 py-2 rounded-md text-base font-medium ${currentPath.startsWith('/reviews') ? 'bg-accent text-white' : 'text-primary hover:bg-surface'}`}>Reviews</a>
         <a 
           href={`tel:${SITE.phone.replace(/\D/g, '')}`}
           class="block px-3 py-2 rounded-md text-base font-medium bg-accent text-white hover:bg-accent/90"
@@ -311,6 +711,39 @@ const servicesByCategory = {
           attributeFilter: ['class']
         });
       }
+    });
+  });
+
+  // Collapsible sections functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const collapseToggles = document.querySelectorAll('[data-collapse-toggle]');
+    
+    collapseToggles.forEach(toggle => {
+      const toggleId = toggle.getAttribute('data-collapse-toggle');
+      const content = document.querySelector(`[data-collapse-content="${toggleId}"]`);
+      const icon = toggle.querySelector('svg');
+      
+      if (!content || !icon) return;
+      
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        const newExpandedState = !isExpanded;
+        
+        // Update aria-expanded attribute
+        toggle.setAttribute('aria-expanded', newExpandedState.toString());
+        
+        // Toggle content visibility
+        if (newExpandedState) {
+          content.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+        } else {
+          content.classList.add('hidden');
+          icon.classList.remove('rotate-180');
+        }
+      });
     });
   });
 </script>
