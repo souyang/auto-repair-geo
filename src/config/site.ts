@@ -1,9 +1,9 @@
 export const SITE = {
   name: "Skyline Auto Repair",
-  url: "https://skylineautorepair.com",
+  url: "https://skylineautorepair.app",
   address: "500 Castro St, Mountain View, CA 94041",
   phone: "(650) 961-0302",
-  email: "info@skylineautorepair.com",
+  email: "info@skylineautorepair.app",
   hours: "Mon–Fri 8 AM – 5 PM",
   areaServed: ["Mountain View", "Palo Alto", "Los Altos", "Sunnyvale"],
   ratingValue: 4.8,

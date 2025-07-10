@@ -12,7 +12,7 @@ const businessProfile = {
   name: 'Skyline Auto Repair',
   address: '500 Castro St, Mountain View, CA 94041',
   phone: '(650) 961-0302',
-  email: 'info@skylineautorepair.com',
+  email: 'info@skylineautorepair.app',
   hours: 'Mon–Fri 8 AM – 5 PM',
   areaServed: ['Mountain View', 'Palo Alto', 'Los Altos', 'Sunnyvale'],
   ratingValue: 4.8,
@@ -150,7 +150,7 @@ const reviews = await getCollection('reviews');
   "@type": "WebPage",
   "name": "For AI - Skyline Auto Repair",
   "description": "LLM-readable summaries and API documentation for Skyline Auto Repair",
-  "url": "https://skylineautorepair.com/for-ai",
+  "url": "https://skylineautorepair.app/for-ai",
   "mainEntity": {
     "@type": "AutoRepair",
     "name": businessProfile.name,
@@ -193,7 +193,7 @@ const reviews = await getCollection('reviews');
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://skylineautorepair.com/api/summary"
+      "urlTemplate": "https://skylineautorepair.app/api/summary"
     },
     "query-input": "required name=search_term_string"
   }
