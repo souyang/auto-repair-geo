@@ -8,9 +8,11 @@ export interface Props {
 }
 
 const { faqs, title = "Frequently Asked Questions" } = Astro.props;
+// Generate a unique ID for this FAQ section
+const sectionId = `faq-section-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
-<div class="space-y-4">
+<div class="space-y-4" data-faq-section={sectionId}>
   {title && <h3 class="text-2xl font-display font-semibold text-primary mb-6">{title}</h3>}
   
   <div class="space-y-2">
@@ -19,9 +21,9 @@ const { faqs, title = "Frequently Asked Questions" } = Astro.props;
         <button
           class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-surface transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset"
           aria-expanded="false"
-          aria-controls={`faq-${index}`}
+          aria-controls={`${sectionId}-faq-${index}`}
           data-faq-toggle
-          data-faq-target={`faq-${index}`}
+          data-faq-target={`${sectionId}-faq-${index}`}
         >
           <span class="font-medium text-primary">{faq.q}</span>
           <svg 
@@ -35,10 +37,10 @@ const { faqs, title = "Frequently Asked Questions" } = Astro.props;
           </svg>
         </button>
         <div 
-          id={`faq-${index}`}
+          id={`${sectionId}-faq-${index}`}
           class="hidden px-6 pb-4"
           role="region"
-          aria-labelledby={`faq-button-${index}`}
+          aria-labelledby={`${sectionId}-faq-button-${index}`}
         >
           <p class="text-gray-700 leading-relaxed">{faq.a}</p>
         </div>
@@ -50,35 +52,42 @@ const { faqs, title = "Frequently Asked Questions" } = Astro.props;
 <script>
   // FAQ Accordion functionality
   document.addEventListener('DOMContentLoaded', () => {
-    const faqToggles = document.querySelectorAll('[data-faq-toggle]');
+    const faqSections = document.querySelectorAll('[data-faq-section]');
   
-    faqToggles.forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        const targetId = toggle.getAttribute('data-faq-target');
-        const target = document.getElementById(targetId);
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-        const icon = toggle.querySelector('svg');
-  
-        // Toggle aria-expanded
-        toggle.setAttribute('aria-expanded', (!isExpanded).toString());
-  
-        // Toggle content visibility
-        if (target) {
-          target.classList.toggle('hidden');
-        }
-  
-        // Rotate icon
-        if (icon) {
-          icon.classList.toggle('rotate-180');
-        }
-      });
-  
-      // Keyboard support
-      toggle.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle.click();
-        }
+    faqSections.forEach(section => {
+      const faqToggles = section.querySelectorAll('[data-faq-toggle]');
+    
+      faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const targetId = toggle.getAttribute('data-faq-target');
+          if (!targetId) return;
+          
+          const target = document.getElementById(targetId);
+          const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+          const icon = toggle.querySelector('svg');
+    
+          // Toggle aria-expanded
+          toggle.setAttribute('aria-expanded', (!isExpanded).toString());
+    
+          // Toggle content visibility
+          if (target) {
+            target.classList.toggle('hidden');
+          }
+    
+          // Rotate icon
+          if (icon) {
+            icon.classList.toggle('rotate-180');
+          }
+        });
+    
+        // Keyboard support
+        toggle.addEventListener('keydown', (e: Event) => {
+          const keyboardEvent = e as KeyboardEvent;
+          if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
+            e.preventDefault();
+            (toggle as HTMLElement).click();
+          }
+        });
       });
     });
   });
