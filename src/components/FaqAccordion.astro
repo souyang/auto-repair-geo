@@ -24,6 +24,7 @@ const sectionId = `faq-section-${Math.random().toString(36).substr(2, 9)}`;
           aria-controls={`${sectionId}-faq-${index}`}
           data-faq-toggle
           data-faq-target={`${sectionId}-faq-${index}`}
+          id={`${sectionId}-faq-button-${index}`}
         >
           <span class="font-medium text-primary">{faq.q}</span>
           <svg 
@@ -42,7 +43,7 @@ const sectionId = `faq-section-${Math.random().toString(36).substr(2, 9)}`;
           role="region"
           aria-labelledby={`${sectionId}-faq-button-${index}`}
         >
-          <p class="text-gray-700 leading-relaxed">{faq.a}</p>
+          <p class="text-gray-700 leading-relaxed" set:html={faq.a}></p>
         </div>
       </div>
     ))}
@@ -81,7 +82,7 @@ const sectionId = `faq-section-${Math.random().toString(36).substr(2, 9)}`;
         });
     
         // Keyboard support
-        toggle.addEventListener('keydown', (e: Event) => {
+        toggle.addEventListener('keydown', (e) => {
           const keyboardEvent = e as KeyboardEvent;
           if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
             e.preventDefault();

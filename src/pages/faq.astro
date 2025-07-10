@@ -15,11 +15,11 @@ const faqCategories = [
     faqs: [
       {
         q: "How often should I get my oil changed?",
-        a: "Most modern vehicles require oil changes every 5,000-7,500 miles with synthetic oil, or every 3,000-5,000 miles with conventional oil. Check your owner's manual for specific recommendations."
+        a: "Most modern vehicles require oil changes every 5,000-7,500 miles with synthetic oil, or every 3,000-5,000 miles with conventional oil. Check your owner's manual for specific recommendations. <a href='/services/maintenance/oil-change' class='text-accent hover:underline'>Learn more about our oil change service</a>."
       },
       {
         q: "What's the difference between a diagnostic fee and repair cost?",
-        a: "A diagnostic fee covers the time and equipment needed to identify the problem. The repair cost covers the actual parts and labor to fix the issue. We apply the diagnostic fee toward any repairs you choose to have done."
+        a: "A diagnostic fee covers the time and equipment needed to identify the problem. The repair cost covers the actual parts and labor to fix the issue. We apply the diagnostic fee toward any repairs you choose to have done. <a href='/services/diagnostics/engine-diagnostics' class='text-accent hover:underline'>See our diagnostic services</a>."
       },
       {
         q: "Do you offer warranties on your work?",
@@ -27,7 +27,7 @@ const faqCategories = [
       },
       {
         q: "How long do most repairs take?",
-        a: "Simple services like oil changes take 30-60 minutes. Brake jobs typically take 2-4 hours. Engine work can take 4-8 hours or more. We'll give you a specific timeline when you schedule your appointment."
+        a: "Simple services like oil changes take 30-60 minutes. Brake jobs typically take 2-4 hours. Engine work can take 4-8 hours or more. We'll give you a specific timeline when you schedule your appointment. <a href='/appointments' class='text-accent hover:underline'>Schedule your service today</a>."
       }
     ]
   },
@@ -36,15 +36,15 @@ const faqCategories = [
     faqs: [
       {
         q: "What should I do if my check engine light comes on?",
-        a: "If the light is steady, schedule service soon but it's usually safe to drive. If the light is flashing, stop driving immediately and call us - this indicates a serious problem that could damage your engine."
+        a: "If the light is steady, schedule service soon but it's usually safe to drive. If the light is flashing, stop driving immediately and call us - this indicates a serious problem that could damage your engine. <a href='/check-engine-light' class='text-accent hover:underline'>Learn more about check engine lights</a>."
       },
       {
         q: "My car won't start - what could be wrong?",
-        a: "Common causes include a dead battery, faulty starter, fuel pump issues, or ignition problems. Try jumping the battery first. If that doesn't work, call us for a diagnostic appointment."
+        a: "Common causes include a dead battery, faulty starter, fuel pump issues, or ignition problems. Try jumping the battery first. If that doesn't work, call us for a diagnostic appointment. <a href='/services/diagnostics/engine-diagnostics' class='text-accent hover:underline'>Our diagnostic services can identify the issue</a>."
       },
       {
         q: "My brakes feel soft - is this dangerous?",
-        a: "Yes, soft brakes are a safety concern. This could indicate air in the brake lines, worn brake pads, or a brake fluid leak. Schedule an inspection immediately - don't drive if the pedal goes to the floor."
+        a: "Yes, soft brakes are a safety concern. This could indicate air in the brake lines, worn brake pads, or a brake fluid leak. Schedule an inspection immediately - don't drive if the pedal goes to the floor. <a href='/services/brakes/brake-repair' class='text-accent hover:underline'>See our brake repair services</a>."
       },
       {
         q: "What if my car overheats while driving?",
@@ -57,11 +57,11 @@ const faqCategories = [
     faqs: [
       {
         q: "What's included in a 30k mile service?",
-        a: "30k service typically includes oil change, filter replacement, fluid level checks, brake inspection, tire rotation, and a comprehensive safety inspection. We follow manufacturer recommendations."
+        a: "30k service typically includes oil change, filter replacement, fluid level checks, brake inspection, tire rotation, and a comprehensive safety inspection. We follow manufacturer recommendations. <a href='/services/maintenance/30k-service' class='text-accent hover:underline'>View our 30k service details</a>."
       },
       {
         q: "When should I replace my timing belt?",
-        a: "Most timing belts should be replaced every 60,000-100,000 miles. Check your owner's manual for specific intervals. Replacing it on schedule prevents expensive engine damage."
+        a: "Most timing belts should be replaced every 60,000-100,000 miles. Check your owner's manual for specific intervals. Replacing it on schedule prevents expensive engine damage. <a href='/services/maintenance/timing-belt' class='text-accent hover:underline'>Learn about our timing belt service</a>."
       },
       {
         q: "How often should I check my tire pressure?",
@@ -69,7 +69,7 @@ const faqCategories = [
       },
       {
         q: "When do I need to replace brake pads?",
-        a: "Brake pads typically last 25,000-65,000 miles depending on driving conditions. We inspect brake condition during every service and will notify you when replacement is needed."
+        a: "Brake pads typically last 25,000-65,000 miles depending on driving conditions. We inspect brake condition during every service and will notify you when replacement is needed. <a href='/services/brakes/brake-repair' class='text-accent hover:underline'>See our brake services</a>."
       }
     ]
   },
@@ -95,12 +95,34 @@ const faqCategories = [
     ]
   }
 ];
+
+// Create FAQPage structured data
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqCategories.flatMap(category => 
+    category.faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a.replace(/<[^>]*>/g, '') // Remove HTML tags for structured data
+      }
+    }))
+  )
+};
+
+// Generate current date string
+const lastUpdated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
 <BaseLayout 
   title="Auto Repair FAQ - Common Questions Answered | Skyline Auto Repair"
   description="Get answers to common auto repair questions. Expert advice on maintenance, emergency situations, service intervals, and pricing from Mountain View's trusted auto repair shop."
 >
+  <!-- FAQPage Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)}></script>
+
   <div class="bg-surface py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <Breadcrumbs items={breadcrumbItems} />
@@ -111,6 +133,9 @@ const faqCategories = [
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
           Get expert answers to common auto repair questions. Can't find what you're looking for? Call us at {SITE.phone} for personalized assistance.
+        </p>
+        <p class="text-sm text-gray-500 mt-4">
+          Last updated: {lastUpdated}
         </p>
       </div>
 
