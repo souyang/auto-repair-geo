@@ -1,11 +1,13 @@
 # LLM Citation Strategy for Skyline Auto Repair
 
 ## Overview
+
 This document outlines the comprehensive strategy to make your auto repair website content discoverable and citable by LLMs like Perplexity, ChatGPT, and Claude.
 
 ## 1. Enhanced Structured Data Implementation
 
 ### ✅ Already Implemented
+
 - **Schema.org markup** on all pages
 - **Review structured data** with ratings and author information
 - **Business information** with address, phone, hours
@@ -13,6 +15,7 @@ This document outlines the comprehensive strategy to make your auto repair websi
 - **Breadcrumb navigation** with proper schema markup
 
 ### 🔄 Recently Enhanced
+
 - **Service pages** with comprehensive structured data including:
   - Service type categorization (maintenance vs repair)
   - Pricing information
@@ -23,6 +26,7 @@ This document outlines the comprehensive strategy to make your auto repair websi
 ## 2. API Endpoints for LLM Consumption
 
 ### `/api/summary` - Comprehensive Data API
+
 ```json
 {
   "business": {
@@ -44,6 +48,7 @@ This document outlines the comprehensive strategy to make your auto repair websi
 ```
 
 ### `/for-ai` - LLM-Friendly Landing Page
+
 - Structured business profile
 - API documentation
 - Sample queries
@@ -53,6 +58,7 @@ This document outlines the comprehensive strategy to make your auto repair websi
 ## 3. Content Optimization for LLM Discovery
 
 ### High-Value Content Pages
+
 1. **Check Engine Light Guide** (`/check-engine-light`)
    - Common diagnostic codes
    - Step-by-step troubleshooting
@@ -76,6 +82,7 @@ This document outlines the comprehensive strategy to make your auto repair websi
 ## 4. Technical SEO for LLM Crawlers
 
 ### Robots.txt Optimization
+
 ```txt
 User-agent: GPTBot
 Allow: /
@@ -94,6 +101,7 @@ Allow: /for-ai
 ```
 
 ### Dynamic Sitemap
+
 - All service pages
 - All vehicle pages
 - All location pages
@@ -103,6 +111,7 @@ Allow: /for-ai
 ## 5. Content Strategy for LLM Citations
 
 ### Target Questions LLMs Should Answer
+
 1. **"What causes a check engine light?"**
    - Your check engine light guide will be cited
 
@@ -119,6 +128,7 @@ Allow: /for-ai
    - Your vehicle-specific content will be cited
 
 ### Content Optimization Tips
+
 1. **Use clear, authoritative language**
 2. **Include specific pricing and details**
 3. **Provide step-by-step instructions**
@@ -129,11 +139,13 @@ Allow: /for-ai
 ## 6. Monitoring and Testing
 
 ### Test Your LLM Citations
+
 1. **Ask Perplexity**: "What causes a check engine light?"
 2. **Ask ChatGPT**: "Best auto repair in Mountain View, CA"
 3. **Ask Claude**: "How much does an oil change cost?"
 
 ### Track Citations
+
 - Monitor which pages get cited
 - Note the types of questions that trigger citations
 - Identify gaps in content coverage
@@ -141,7 +153,9 @@ Allow: /for-ai
 ## 7. Advanced Strategies
 
 ### JSON-LD Implementation
+
 All pages now include comprehensive structured data:
+
 ```json
 {
   "@context": "https://schema.org",
@@ -160,6 +174,7 @@ All pages now include comprehensive structured data:
 ```
 
 ### API Rate Limiting
+
 - Implement caching for API responses
 - Set appropriate cache headers
 - Monitor API usage
@@ -167,12 +182,14 @@ All pages now include comprehensive structured data:
 ## 8. Content Calendar for LLM Optimization
 
 ### Monthly Content Focus
+
 - **Week 1**: Service-specific guides (brake repair, engine diagnostics)
 - **Week 2**: Vehicle-specific content (Honda, Toyota, BMW)
 - **Week 3**: Local market content (Mountain View, Palo Alto)
 - **Week 4**: Industry insights and comparisons
 
 ### Content Types to Prioritize
+
 1. **How-to guides** with step-by-step instructions
 2. **Comparison content** (dealer vs independent, brands)
 3. **Local expertise** content
@@ -182,6 +199,7 @@ All pages now include comprehensive structured data:
 ## 9. Success Metrics
 
 ### LLM Citation Indicators
+
 - [ ] Content appears in Perplexity search results
 - [ ] ChatGPT cites your website for auto repair questions
 - [ ] Claude references your content in responses
@@ -189,6 +207,7 @@ All pages now include comprehensive structured data:
 - [ ] Structured data is properly indexed
 
 ### Traffic and Engagement
+
 - [ ] Increased organic traffic from AI-generated responses
 - [ ] Higher click-through rates from LLM citations
 - [ ] Improved local search rankings
@@ -197,6 +216,7 @@ All pages now include comprehensive structured data:
 ## 10. Implementation Checklist
 
 ### ✅ Completed
+
 - [x] Enhanced structured data on all pages
 - [x] Created comprehensive API endpoint
 - [x] Built LLM-friendly landing page
@@ -205,12 +225,14 @@ All pages now include comprehensive structured data:
 - [x] Added schema markup to service pages
 
 ### 🔄 In Progress
+
 - [ ] Monitor LLM citations
 - [ ] Test with different AI platforms
 - [ ] Optimize content based on citation patterns
 - [ ] Expand content coverage for gaps
 
 ### 📋 Next Steps
+
 - [ ] Create more vehicle-specific content
 - [ ] Add more local market content
 - [ ] Develop seasonal auto repair guides
@@ -220,6 +242,7 @@ All pages now include comprehensive structured data:
 ## 11. Troubleshooting
 
 ### If LLMs Aren't Citing Your Content
+
 1. **Check structured data** using Google's Rich Results Test
 2. **Verify API accessibility** by testing `/api/summary`
 3. **Ensure content quality** - make it authoritative and comprehensive
@@ -227,7 +250,9 @@ All pages now include comprehensive structured data:
 5. **Add more specific details** - pricing, locations, expertise
 
 ### Common Issues
+
 - **Missing structured data**: Use Google's testing tool
+- 
 - **API not accessible**: Check CORS headers and rate limiting
 - **Content too generic**: Add specific local details and expertise
 - **Poor page performance**: Optimize images and code
@@ -235,11 +260,13 @@ All pages now include comprehensive structured data:
 ## 12. Resources
 
 ### Testing Tools
+
 - [Google Rich Results Test](https://search.google.com/test/rich-results)
 - [Schema.org Validator](https://validator.schema.org/)
 - [Google PageSpeed Insights](https://pagespeed.web.dev/)
 
 ### Monitoring Tools
+
 - Google Search Console
 - Google Analytics
 - Manual testing with AI platforms
