@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { service } = Astro.props;
+const { service } = Astro.props as any;
 const { data } = service;
 
 // Render the MDX content
@@ -86,35 +86,85 @@ const breadcrumbItems = [
         )}
 
         <!-- CTA -->
-        <div class="mt-12 text-center">
-          <h2 class="text-2xl font-display font-bold text-primary mb-4">
-            Ready to Schedule Your Service?
-          </h2>
-          <p class="text-lg text-gray-600 mb-6">
-            Contact us today to schedule your appointment or get a free estimate.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="mt-8 p-6 bg-surface rounded-lg">
+          <h3 class="text-xl font-display font-semibold text-primary mb-4">
+            Ready to Schedule Your {data.title}?
+          </h3>
+          <div class="flex flex-col sm:flex-row gap-4">
             <a 
               href="/appointments" 
-              class="inline-flex items-center justify-center px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+              class="inline-flex items-center justify-center bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
             >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
               Book Appointment
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
             </a>
             <a 
-              href="/contact" 
-              class="inline-flex items-center justify-center px-8 py-4 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+              href={`tel:${SITE.phone.replace(/\D/g, '')}`}
+              class="inline-flex items-center justify-center border border-accent text-accent px-6 py-3 rounded-lg font-semibold hover:bg-accent hover:text-white transition-colors"
             >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Contact Us
+              Call {SITE.phone}
             </a>
           </div>
         </div>
       </article>
     </div>
   </div>
-</BaseLayout> 
+</BaseLayout>
+
+<!-- Enhanced Structured Data for LLM Citation -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": data.title,
+  "description": data.excerpt,
+  "provider": {
+    "@type": "AutoRepair",
+    "name": SITE.name,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "500 Castro St",
+      "addressLocality": "Mountain View",
+      "addressRegion": "CA",
+      "postalCode": "94041",
+      "addressCountry": "US"
+    },
+    "telephone": SITE.phone,
+    "email": SITE.email,
+    "url": SITE.url
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": data.price?.replace(/[^\d.]/g, ''),
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "validFrom": new Date().toISOString().split('T')[0]
+  },
+  "serviceType": data.category === 'maintenance' ? "Automotive Maintenance" : "Automotive Repair",
+  "areaServed": SITE.areaServed.map(area => ({
+    "@type": "City",
+    "name": area
+  })),
+  "keywords": data.tags.join(', '),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `${SITE.url}/services/${data.category}/${service.slug}`
+  },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${SITE.url}/appointments`,
+      "inLanguage": "en-US",
+      "actionPlatform": [
+        "http://schema.org/DesktopWebPlatform",
+        "http://schema.org/MobileWebPlatform"
+      ]
+    },
+    "result": {
+      "@type": "Reservation",
+      "name": `${data.title} Appointment`
+    }
+  }
+})} /> 

@@ -1,12 +1,44 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Allow AI crawlers and LLMs to access API endpoints
+User-agent: GPTBot
+Allow: /
+Allow: /api/
+Allow: /for-ai
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /api/
+Allow: /for-ai
+
+User-agent: CCBot
+Allow: /
+Allow: /api/
+Allow: /for-ai
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /api/
+Allow: /for-ai
+
+User-agent: Claude-Web
+Allow: /
+Allow: /api/
+Allow: /for-ai
+
+User-agent: Omgilibot
+Allow: /
+Allow: /api/
+Allow: /for-ai
+
+# Sitemaps - Both Astro's built-in and custom
 Sitemap: https://skylineautorepair.com/sitemap-index.xml
+Sitemap: https://skylineautorepair.com/sitemap.xml
 
 # Disallow admin or private areas (if any)
-Disallow: /api/
 Disallow: /admin/
+Disallow: /private/
 
 # Allow important pages
 Allow: /services/

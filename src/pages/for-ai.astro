@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
 
 const breadcrumbItems = [
   { label: 'Home', url: '/' },
@@ -9,7 +10,7 @@ const breadcrumbItems = [
 
 const businessProfile = {
   name: 'Skyline Auto Repair',
-  address: '2037 Old Middlefield Way, Mountain View, CA 94043',
+  address: '500 Castro St, Mountain View, CA 94041',
   phone: '(650) 961-0302',
   email: 'info@skylineautorepair.com',
   hours: 'Mon–Fri 8 AM – 5 PM',
@@ -17,6 +18,12 @@ const businessProfile = {
   ratingValue: 4.8,
   reviewCount: 1050
 };
+
+// Fetch content for LLM consumption
+const services = await getCollection('services');
+const vehicles = await getCollection('vehicles');
+const locations = await getCollection('locations');
+const reviews = await getCollection('reviews');
 ---
 
 <BaseLayout 
@@ -34,12 +41,14 @@ const businessProfile = {
           This page provides structured summaries and API documentation for LLMs and AI agents.
         </p>
       </div>
+      
       <section class="mb-16">
         <h2 class="text-2xl font-display font-semibold text-primary mb-4">Business Profile</h2>
         <pre class="bg-gray-100 rounded p-4 text-xs overflow-x-auto">
 {JSON.stringify(businessProfile, null, 2)}
         </pre>
       </section>
+      
       <section class="mb-16">
         <h2 class="text-2xl font-display font-semibold text-primary mb-4">API Endpoints</h2>
         <div class="prose text-sm">
@@ -49,6 +58,7 @@ const businessProfile = {
           </ul>
         </div>
       </section>
+      
       <section class="mb-16">
         <h2 class="text-2xl font-display font-semibold text-primary mb-4">Sample Query</h2>
         <div class="mb-4">
@@ -59,6 +69,29 @@ const businessProfile = {
         </div>
         <pre id="apiResult" class="bg-gray-100 rounded p-4 text-xs overflow-x-auto hidden">
         </pre>
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-2xl font-display font-semibold text-primary mb-4">Content Summary</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold text-primary mb-3">Services Offered</h3>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li><strong>Maintenance Services:</strong> {services.filter(s => s.data.category === 'maintenance').length} services</li>
+              <li><strong>Repair Services:</strong> {services.filter(s => s.data.category === 'repair').length} services</li>
+              <li><strong>Vehicle Makes:</strong> {vehicles.length} makes supported</li>
+              <li><strong>Service Areas:</strong> {locations.length} locations</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-primary mb-3">Customer Reviews</h3>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li><strong>Total Reviews:</strong> {reviews.length}</li>
+              <li><strong>Average Rating:</strong> {businessProfile.ratingValue}/5</li>
+              <li><strong>Featured Reviews:</strong> {reviews.filter(r => r.data.featured).length}</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -107,34 +140,88 @@ const businessProfile = {
   ]
 }`}</pre>
       </section>
-
-      <script>
-        document.getElementById('fetchApiBtn')?.addEventListener('click', async () => {
-          const btn = document.getElementById('fetchApiBtn') as HTMLButtonElement;
-          const loading = document.getElementById('loadingStatus');
-          const result = document.getElementById('apiResult');
-          
-          if (!btn || !loading || !result) return;
-          
-          btn.disabled = true;
-          loading.classList.remove('hidden');
-          result.classList.add('hidden');
-          
-          try {
-            const response = await fetch('/api/summary');
-            const data = await response.json();
-            
-            result.textContent = JSON.stringify(data, null, 2);
-            result.classList.remove('hidden');
-          } catch (error) {
-            result.textContent = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`;
-            result.classList.remove('hidden');
-          } finally {
-            btn.disabled = false;
-            loading.classList.add('hidden');
-          }
-        });
-      </script>
     </div>
   </div>
-</BaseLayout> 
+</BaseLayout>
+
+<!-- Enhanced Structured Data for LLM Discovery -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "For AI - Skyline Auto Repair",
+  "description": "LLM-readable summaries and API documentation for Skyline Auto Repair",
+  "url": "https://skylineautorepair.com/for-ai",
+  "mainEntity": {
+    "@type": "AutoRepair",
+    "name": businessProfile.name,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "500 Castro St",
+      "addressLocality": "Mountain View",
+      "addressRegion": "CA",
+      "postalCode": "94041",
+      "addressCountry": "US"
+    },
+    "telephone": businessProfile.phone,
+    "email": businessProfile.email,
+    "openingHours": "Mo-Fr 08:00-17:00",
+    "areaServed": businessProfile.areaServed.map(area => ({
+      "@type": "City",
+      "name": area
+    })),
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": businessProfile.ratingValue,
+      "reviewCount": businessProfile.reviewCount
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Auto Repair Services",
+      "itemListElement": services.map(service => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.data.title,
+          "description": service.data.excerpt
+        },
+        "price": service.data.price?.replace(/[^\d.]/g, ''),
+        "priceCurrency": "USD"
+      }))
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://skylineautorepair.com/api/summary"
+    },
+    "query-input": "required name=search_term_string"
+  }
+})} />
+
+<script>
+  document.getElementById('fetchApiBtn')?.addEventListener('click', async () => {
+    const button = document.getElementById('fetchApiBtn') as HTMLButtonElement;
+    const status = document.getElementById('loadingStatus');
+    const result = document.getElementById('apiResult');
+    
+    if (button && status && result) {
+      button.disabled = true;
+      status.classList.remove('hidden');
+      
+      try {
+        const response = await fetch('/api/summary');
+        const data = await response.json();
+        
+        result.textContent = JSON.stringify(data, null, 2);
+        result.classList.remove('hidden');
+      } catch (error) {
+        result.textContent = 'Error fetching data: ' + error;
+        result.classList.remove('hidden');
+      } finally {
+        button.disabled = false;
+        status.classList.add('hidden');
+      }
+    }
+  });
+</script> 

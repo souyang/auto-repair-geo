@@ -1,19 +1,19 @@
 export const SITE = {
-  name: 'Skyline Auto Repair',
-  url: 'https://skylineautorepair.com',
-  address: '2037 Old Middlefield Way, Mountain View, CA 94043',
-  phone: '(650) 961-0302',
-  email: 'info@skylineautorepair.com',
-  hours: 'Mon–Fri 8 AM – 5 PM',
-  areaServed: ['Mountain View', 'Palo Alto', 'Los Altos', 'Sunnyvale'],
+  name: "Skyline Auto Repair",
+  url: "https://skylineautorepair.com",
+  address: "500 Castro St, Mountain View, CA 94041",
+  phone: "(650) 961-0302",
+  email: "info@skylineautorepair.com",
+  hours: "Mon–Fri 8 AM – 5 PM",
+  areaServed: ["Mountain View", "Palo Alto", "Los Altos", "Sunnyvale"],
   ratingValue: 4.8,
   reviewCount: 1050,
   description:
-    'ASE-certified auto repair and maintenance services in Mountain View, CA. Family-owned since 1985.',
+    "ASE-certified auto repair and maintenance services in Mountain View, CA. Family-owned since 1985.",
   social: {
-    facebook: 'https://facebook.com/skylineautorepair',
-    yelp: 'https://yelp.com/biz/skyline-auto-repair-mountain-view',
-    google: 'https://maps.google.com/?cid=123456789',
+    facebook: "https://facebook.com/skylineautorepair",
+    yelp: "https://yelp.com/biz/skyline-auto-repair-mountain-view",
+    google: "https://maps.google.com/?cid=123456789",
   },
 };
 
@@ -192,27 +192,27 @@ export const VEHICLES = [
 
 export const LOCATIONS = [
   {
-    name: 'Mountain View',
-    slug: 'mountain-view',
-    address: '2037 Old Middlefield Way, Mountain View, CA 94043',
-    coordinates: { lat: 37.3861, lng: -122.0839 },
+    name: "Mountain View",
+    slug: "mountain-view",
+    address: "500 Castro St, Mountain View, CA 94041",
+    coordinates: { lat: 37.3894, lng: -122.0819 },
   },
   {
-    name: 'Palo Alto',
-    slug: 'palo-alto',
-    address: 'Serving Palo Alto area',
+    name: "Palo Alto",
+    slug: "palo-alto",
+    address: "Serving Palo Alto area",
     coordinates: { lat: 37.4419, lng: -122.143 },
   },
   {
-    name: 'Los Altos',
-    slug: 'los-altos',
-    address: 'Serving Los Altos area',
+    name: "Los Altos",
+    slug: "los-altos",
+    address: "Serving Los Altos area",
     coordinates: { lat: 37.3855, lng: -122.1141 },
   },
   {
-    name: 'Sunnyvale',
-    slug: 'sunnyvale',
-    address: 'Serving Sunnyvale area',
+    name: "Sunnyvale",
+    slug: "sunnyvale",
+    address: "Serving Sunnyvale area",
     coordinates: { lat: 37.3688, lng: -122.0363 },
   },
 ];
