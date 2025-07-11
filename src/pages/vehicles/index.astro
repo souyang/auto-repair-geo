@@ -70,8 +70,8 @@ const breadcrumbItems = [
                   {vehicle.data.models.slice(0, 3).join(', ')}
                   {vehicle.data.models.length > 3 && ' & more'}
                 </p>
-                <div class="text-xs text-accent font-medium">
-                  Learn More →
+                <div class="text-xs text-accent font-medium" aria-label={`Learn more about ${vehicle.data.make}`}>
+                  {`Learn more about this`}
                 </div>
               </div>
             </a>

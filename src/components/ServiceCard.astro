@@ -48,9 +48,8 @@ const { title, summary, excerpt, price, duration, tags, slug, category } = Astro
       <a 
         href={`/services/${category}/${slug}`}
         class="inline-flex items-center text-accent font-medium hover:text-accent/80 transition-colors"
-        aria-label={`Learn more about ${title}`}
       >
-        Learn More
+        {`Learn more on this`}
         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
