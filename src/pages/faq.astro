@@ -96,20 +96,38 @@ const faqCategories = [
   }
 ];
 
-// Create FAQPage structured data
+// Create enhanced FAQPage structured data for better AI discovery
 const faqStructuredData = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "name": "Auto Repair FAQ - Skyline Auto Repair",
+  "description": "Expert answers to common auto repair questions from Mountain View's trusted auto repair shop",
+  "url": "https://skylineautorepair.app/faq",
   "mainEntity": faqCategories.flatMap(category => 
     category.faqs.map(faq => ({
       "@type": "Question",
       "name": faq.q,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": faq.a.replace(/<[^>]*>/g, '') // Remove HTML tags for structured data
+        "text": faq.a.replace(/<[^>]*>/g, ''), // Remove HTML tags for structured data
+        "url": "https://skylineautorepair.app/faq"
       }
     }))
-  )
+  ),
+  "about": {
+    "@type": "AutoRepair",
+    "name": "Skyline Auto Repair",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "500 Castro St",
+      "addressLocality": "Mountain View",
+      "addressRegion": "CA",
+      "postalCode": "94041",
+      "addressCountry": "US"
+    },
+    "telephone": "(424) 475-9376",
+    "areaServed": ["Mountain View", "Palo Alto", "Los Altos", "Sunnyvale"]
+  }
 };
 
 // Generate current date string

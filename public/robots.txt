@@ -6,31 +6,43 @@ User-agent: GPTBot
 Allow: /
 Allow: /api/
 Allow: /for-ai
+Allow: /faq
+Allow: /faq-data
 
 User-agent: ChatGPT-User
 Allow: /
 Allow: /api/
 Allow: /for-ai
+Allow: /faq
+Allow: /faq-data
 
 User-agent: CCBot
 Allow: /
 Allow: /api/
 Allow: /for-ai
+Allow: /faq
+Allow: /faq-data
 
 User-agent: anthropic-ai
 Allow: /
 Allow: /api/
 Allow: /for-ai
+Allow: /faq
+Allow: /faq-data
 
 User-agent: Claude-Web
 Allow: /
 Allow: /api/
 Allow: /for-ai
+Allow: /faq
+Allow: /faq-data
 
 User-agent: Omgilibot
 Allow: /
 Allow: /api/
 Allow: /for-ai
+Allow: /faq
+Allow: /faq-data
 
 # Sitemaps - Both Astro's built-in and custom
 Sitemap: https://skylineautorepair.app/sitemap-index.xml

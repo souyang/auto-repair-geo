@@ -17,7 +17,8 @@ export async function GET() {
     { url: "/reviews", priority: 0.8, changefreq: "weekly" },
     { url: "/about", priority: 0.7, changefreq: "monthly" },
     { url: "/contact", priority: 0.8, changefreq: "monthly" },
-    { url: "/faq", priority: 0.7, changefreq: "monthly" },
+    { url: "/faq", priority: 0.8, changefreq: "monthly" },
+    { url: "/faq-data", priority: 0.6, changefreq: "monthly" },
 
     // Content pages
     { url: "/check-engine-light", priority: 0.8, changefreq: "monthly" },
@@ -36,6 +37,7 @@ export async function GET() {
     // API and AI pages
     { url: "/for-ai", priority: 0.6, changefreq: "monthly" },
     { url: "/api/summary", priority: 0.5, changefreq: "daily" },
+    { url: "/api/faq", priority: 0.7, changefreq: "weekly" },
 
     // Service pages
     ...services.map((service) => ({
