@@ -4,12 +4,13 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run critical",
     "preview": "astro preview",
     "astro": "astro",
     "seed": "node scripts/seed-content.js",
     "lint": "eslint . --ext .js,.ts,.astro",
-    "lint:fix": "eslint . --ext .js,.ts,.astro --fix"
+    "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
+    "critical": "for file in dist/**/*.html; do npx critical \"$file\" --inline --base dist/; done"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
