@@ -7,7 +7,7 @@ export default {
     extend: {
       colors: {
         primary: '#1C2C4C',   // Navy
-        accent: '#3ABEF9',    // Sky Blue
+        accent: '#065E89',    // Sky Blue
         surface: '#F4F4F4',   // Light Gray
       },
       fontFamily: {

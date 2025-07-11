@@ -32,13 +32,13 @@ const starsHtml = Array.from({ length: 5 }, (_, i) => starSVG(i < rating)).join(
   <!-- Header -->
   <div class="flex items-start justify-between mb-4">
     <div class="flex-1">
-      <h4 class="font-semibold text-primary" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <div class="font-semibold text-primary" itemprop="author" itemscope itemtype="https://schema.org/Person">
         <span itemprop="name">{author}</span>
-      </h4>
+      </div>
       <p class="text-sm text-gray-500">{formatDate(date)}</p>
       <p class="text-sm text-gray-600 mt-1">{vehicle}</p>
     </div>
-    <div class="flex items-center space-x-1" aria-label={rating + ' out of 5 stars'}>
+    <div class="flex items-center space-x-1" role="img" aria-label={rating + ' out of 5 stars'}>
       <span set:html={starsHtml}></span>
     </div>
   </div>
