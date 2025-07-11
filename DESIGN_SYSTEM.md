@@ -5,13 +5,13 @@
 ### Primary Colors
 
 - **Navy**: `#1C2C4C` - Used for headings, primary text, and main brand elements
-- **Sky Blue**: `#3ABEF9` - Used for accents, CTAs, and interactive elements
+- **Light Blue**: `#065E89` - Used for accents, CTAs, and interactive elements
 - **Light Gray**: `#F4F4F4` - Used for backgrounds, surfaces, and subtle elements
 
 ### Color Usage
 
 - `primary` - Navy (#1C2C4C) for headings and primary text
-- `accent` - Sky Blue (#3ABEF9) for buttons, links, and interactive elements
+- `accent` - Light Blue (#065E89) for buttons, links, and interactive elements
 - `surface` - Light Gray (#F4F4F4) for backgrounds and card surfaces
 
 ## Typography
