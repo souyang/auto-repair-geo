@@ -5,6 +5,22 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Email notifications for form submissions
+[[headers]]
+  for = "/appointments"
+  [headers.values]
+    X-Frame-Options = "DENY"
+
+# Form handling configuration
+[forms]
+  [forms.appointment]
+    name = "appointment"
+    to = "info@skylineautorepair.app"
+    subject = "New Appointment Request - Skyline Auto Repair"
+    from = "noreply@skylineautorepair.app"
+    reply_to = "info@skylineautorepair.app"
+    template = "email-template.html"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

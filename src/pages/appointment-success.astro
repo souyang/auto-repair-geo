@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config/site';
+
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Appointments', url: '/appointments' },
+  { label: 'Success', url: '/appointment-success' }
+];
+---
+
+<BaseLayout 
+  title="Appointment Submitted - Skyline Auto Repair"
+  description="Thank you for scheduling your appointment with Skyline Auto Repair. We'll contact you within 24 hours to confirm your appointment."
+>
+  <div class="bg-surface py-12">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+      
+      <div class="text-center">
+        <div class="mb-8">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+            <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h1 class="text-4xl lg:text-5xl font-display font-bold text-primary mb-4">
+            Appointment Submitted!
+          </h1>
+          <p class="text-xl text-gray-600 mb-8">
+            Thank you for scheduling your appointment with Skyline Auto Repair.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <h2 class="text-2xl font-display font-semibold text-primary mb-6">
+            What Happens Next?
+          </h2>
+          <div class="space-y-4 text-left">
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-6 w-6 rounded-full bg-accent text-white text-sm font-medium">
+                  1
+                </div>
+              </div>
+              <div>
+                <h3 class="font-medium text-primary">Confirmation Call</h3>
+                <p class="text-gray-600 text-sm">We'll call you within 24 hours to confirm your appointment details.</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-6 w-6 rounded-full bg-accent text-white text-sm font-medium">
+                  2
+                </div>
+              </div>
+              <div>
+                <h3 class="font-medium text-primary">Service Preparation</h3>
+                <p class="text-gray-600 text-sm">Our technicians will prepare for your specific service needs.</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-6 w-6 rounded-full bg-accent text-white text-sm font-medium">
+                  3
+                </div>
+              </div>
+              <div>
+                <h3 class="font-medium text-primary">Your Appointment</h3>
+                <p class="text-gray-600 text-sm">Arrive at your scheduled time and we'll take care of the rest!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 rounded-lg p-6 mb-8">
+          <h3 class="text-lg font-semibold text-primary mb-3">Need to Make Changes?</h3>
+          <p class="text-gray-600 mb-4">
+            If you need to modify or cancel your appointment, please call us directly.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href={`tel:${SITE.phone.replace(/\D/g, '')}`}
+              class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Call {SITE.phone}
+            </a>
+            <a 
+              href={`mailto:${SITE.email}`}
+              class="inline-flex items-center justify-center px-6 py-3 border border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Email Us
+            </a>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/"
+            class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Back to Home
+          </a>
+          <a 
+            href="/services"
+            class="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            View Services
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

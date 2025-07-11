@@ -45,9 +45,15 @@ const allServices = [
               method="POST" 
               data-netlify="true" 
               netlify-honeypot="bot-field"
+              action="/appointment-success"
+              data-netlify-recaptcha="true"
               class="space-y-6"
             >
               <input type="hidden" name="form-name" value="appointment" />
+              <input type="hidden" name="subject" value="New Appointment Request - Skyline Auto Repair" />
+              <input type="hidden" name="to" value="info@skylineautorepair.app" />
+              <input type="hidden" name="from" value="noreply@skylineautorepair.app" />
+              <input type="hidden" name="reply-to" value="info@skylineautorepair.app" />
               <p class="hidden">
                 <label>
                   Don't fill this out if you're human: <input name="bot-field" />
