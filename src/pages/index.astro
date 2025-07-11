@@ -4,13 +4,18 @@ import Hero from '../components/Hero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import AskUsFab from '../components/AskUsFab.astro';
-import { SITE, SERVICES, REVIEWS } from '../config/site';
+import { SITE, SERVICES } from '../config/site';
+import { getCollection } from 'astro:content';
 
 // Get featured services (first 3 from each category)
 const featuredServices = [
 	...SERVICES.maintenance.slice(0, 3),
 	...SERVICES.repair.slice(0, 3)
 ];
+
+// Get featured reviews
+const allReviews = await getCollection('reviews');
+const featuredReviews = allReviews.filter(review => review.data.featured).slice(0, 3);
 ---
 
 <BaseLayout 
@@ -117,14 +122,14 @@ const featuredServices = [
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-				{REVIEWS.map(review => (
+				{featuredReviews.map(review => (
 					<ReviewCard
-						author={review.author}
-						rating={review.rating}
-						date={review.date}
-						text={review.text}
-						vehicle={review.vehicle}
-						id={review.id}
+						author={review.data.author}
+						rating={review.data.rating}
+						date={review.data.date}
+						text={review.data.text}
+						vehicle={review.data.vehicle}
+						businessValue={review.data.businessValue}
 					/>
 				))}
 			</div>

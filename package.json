@@ -2,6 +2,8 @@
   "name": "skyline-auto-repair",
   "type": "module",
   "version": "0.0.1",
+  "license": "MIT",
+  "author": "Skyline Auto Repair",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && npm run critical",

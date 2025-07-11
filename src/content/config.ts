@@ -27,6 +27,7 @@ const reviewSchema = z.object({
   text: z.string(),
   vehicle: z.string().optional(),
   featured: z.boolean().optional(),
+  businessValue: z.string().optional(),
 });
 
 const locationSchema = z.object({

@@ -51,6 +51,7 @@ const aggregateRating = {
             date={review.data.date}
             text={review.data.text}
             vehicle={review.data.vehicle}
+            businessValue={review.data.businessValue}
           />
         ))}
       </div>
@@ -66,13 +67,23 @@ const aggregateRating = {
         },
         "review": reviews.map(r => ({
           "@type": "Review",
-          "author": r.data.author,
+          "author": {
+            "@type": "Person",
+            "name": r.data.author
+          },
           "reviewBody": r.data.text,
           "reviewRating": {
             "@type": "Rating",
-            "ratingValue": r.data.rating
+            "ratingValue": r.data.rating,
+            "bestRating": 5,
+            "worstRating": 1
           },
-          "datePublished": r.data.date
+          "itemReviewed": {
+            "@type": "AutoRepair",
+            "name": SITE.name
+          },
+          "datePublished": r.data.date,
+          ...(r.data.businessValue && { "description": r.data.businessValue })
         }))
       })} />
     </div>

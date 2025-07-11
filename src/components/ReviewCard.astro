@@ -5,9 +5,10 @@ export interface Props {
   date: string;
   text: string;
   vehicle: string;
+  businessValue?: string;
 }
 
-const { author, rating, date, text, vehicle } = Astro.props;
+const { author, rating, date, text, vehicle, businessValue } = Astro.props;
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -28,6 +29,7 @@ const starsHtml = Array.from({ length: 5 }, (_, i) => starSVG(i < rating)).join(
   <meta itemprop="ratingValue" content={rating.toString()} />
   <meta itemprop="bestRating" content="5" />
   <meta itemprop="worstRating" content="1" />
+  {businessValue && <meta itemprop="description" content={businessValue} />}
   
   <!-- Header -->
   <div class="flex items-start justify-between mb-4">
@@ -47,6 +49,21 @@ const starsHtml = Array.from({ length: 5 }, (_, i) => starSVG(i < rating)).join(
   <blockquote class="text-gray-700 leading-relaxed italic">
     "{text}"
   </blockquote>
+
+  <!-- Business Value -->
+  {businessValue && (
+    <div class="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+      <div class="flex items-start">
+        <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <div>
+          <p class="text-sm font-medium text-green-800">Value Delivered</p>
+          <p class="text-sm text-green-700 mt-1">{businessValue}</p>
+        </div>
+      </div>
+    </div>
+  )}
 
   <!-- Verified Badge -->
   <div class="flex items-center mt-4">
