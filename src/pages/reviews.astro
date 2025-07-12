@@ -67,10 +67,7 @@ const aggregateRating = {
         },
         "review": reviews.map(r => ({
           "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": r.data.author
-          },
+          "author": r.data.author,
           "reviewBody": r.data.text,
           "reviewRating": {
             "@type": "Rating",

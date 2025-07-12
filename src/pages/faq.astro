@@ -96,7 +96,6 @@ const faqCategories = [
   }
 ];
 
-// Create enhanced FAQPage structured data for better AI discovery
 const faqStructuredData = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -110,7 +109,6 @@ const faqStructuredData = {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": faq.a.replace(/<[^>]*>/g, ''), // Remove HTML tags for structured data
-        "url": "https://skylineautorepair.app/faq"
       }
     }))
   ),

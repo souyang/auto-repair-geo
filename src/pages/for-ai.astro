@@ -184,7 +184,7 @@ const reviews = await getCollection('reviews');
           "name": service.data.title,
           "description": service.data.excerpt
         },
-        "price": service.data.price?.replace(/[^\d.]/g, ''),
+        "price": service.data.price?.replace(/[^\d.]/g, '') || "0",
         "priceCurrency": "USD"
       }))
     }

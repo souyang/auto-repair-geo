@@ -136,7 +136,7 @@ const breadcrumbItems = [
   },
   "offers": {
     "@type": "Offer",
-    "price": data.price?.replace(/[^\d.]/g, ''),
+    "price": data.price?.replace(/[^\d.]/g, '') || "0",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
     "validFrom": new Date().toISOString().split('T')[0]

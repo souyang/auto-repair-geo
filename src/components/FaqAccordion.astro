@@ -92,18 +92,4 @@ const sectionId = `faq-section-${Math.random().toString(36).substr(2, 9)}`;
       });
     });
   });
-</script>
-
-<!-- FAQ Schema -->
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.q,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.a
-    }
-  }))
-})} /> 
+</script> 

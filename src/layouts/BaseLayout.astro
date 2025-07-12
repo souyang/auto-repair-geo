@@ -50,7 +50,14 @@ const structuredData = {
     "@type": "AggregateRating",
     "ratingValue": SITE.ratingValue,
     "reviewCount": SITE.reviewCount
-  }
+  },
+  "description": SITE.description,
+  "image": `${SITE.url}/favicon.svg`,
+  "sameAs": [
+    SITE.social.facebook,
+    SITE.social.yelp,
+    SITE.social.google
+  ]
 };
 ---
 
