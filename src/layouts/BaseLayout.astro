@@ -6,7 +6,6 @@ import '@fontsource/poppins/700.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
-import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config/site';
@@ -68,6 +67,46 @@ const structuredData = {
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/ico" sizes="16x16" href="/favicon-16.ico" />
+    <link rel="icon" type="image/ico" sizes="32x32" href="/favicon-32.ico" />
+    <link rel="icon" type="image/ico" sizes="48x48" href="/favicon-48.ico" />
+    
+    <!-- Apple Touch Icons for iOS devices -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon-48.png" />
+    
+    <!-- Microsoft Tile Icons for Windows -->
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/favicon-48.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#ffffff" />
+    
+    <!-- Web App Manifest and PWA support -->
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content={SITE.name} />
+    
+    <!-- Apple-specific meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content={SITE.name} />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Android Chrome specific -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-48.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL} />
